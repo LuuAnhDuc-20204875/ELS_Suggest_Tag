@@ -1,0 +1,2909 @@
+{
+  "db": "TAG_SEARCH",
+  "collection": "TAG_SEARCH_DATA",
+  "field": "key_name",
+  "grouping": "raw",
+  "total_unique": 725,
+  "items": [
+    {
+      "key_name": "nhân viên ie",
+      "count": 56
+    },
+    {
+      "key_name": "nhân viên bán hàng",
+      "count": 46
+    },
+    {
+      "key_name": "nhân viên marketing",
+      "count": 38
+    },
+    {
+      "key_name": "nhân viên thị trường",
+      "count": 36
+    },
+    {
+      "key_name": "chuyên viên tư vấn",
+      "count": 34
+    },
+    {
+      "key_name": "nhân viên kế toán",
+      "count": 33
+    },
+    {
+      "key_name": "nhân viên kỹ thuật",
+      "count": 29
+    },
+    {
+      "key_name": "chuyên viên kinh doanh",
+      "count": 28
+    },
+    {
+      "key_name": "giám sát",
+      "count": 27
+    },
+    {
+      "key_name": "kế toán tổng hợp",
+      "count": 27
+    },
+    {
+      "key_name": "nhân viên kho",
+      "count": 26
+    },
+    {
+      "key_name": "nhân viên bất động sản",
+      "count": 24
+    },
+    {
+      "key_name": "nhân viên thiết kế",
+      "count": 23
+    },
+    {
+      "key_name": "giám đốc",
+      "count": 22
+    },
+    {
+      "key_name": "nhân viên CS",
+      "count": 21
+    },
+    {
+      "key_name": "y sĩ",
+      "count": 21
+    },
+    {
+      "key_name": "Content",
+      "count": 19
+    },
+    {
+      "key_name": "Công Nhân",
+      "count": 19
+    },
+    {
+      "key_name": "hành chính nhân sự",
+      "count": 19
+    },
+    {
+      "key_name": "trưởng phòng kinh doanh",
+      "count": 19
+    },
+    {
+      "key_name": "giáo viên",
+      "count": 18
+    },
+    {
+      "key_name": "nhân viên nhân sự",
+      "count": 18
+    },
+    {
+      "key_name": "Lễ tân",
+      "count": 17
+    },
+    {
+      "key_name": "nhân viên nhà hàng",
+      "count": 17
+    },
+    {
+      "key_name": "cộng tác viên",
+      "count": 16
+    },
+    {
+      "key_name": "giao hàng",
+      "count": 16
+    },
+    {
+      "key_name": "tư vấn tài chính",
+      "count": 16
+    },
+    {
+      "key_name": "Digital Marketing",
+      "count": 15
+    },
+    {
+      "key_name": "nhân viên IT",
+      "count": 15
+    },
+    {
+      "key_name": "bán hàng shop",
+      "count": 14
+    },
+    {
+      "key_name": "Content Marketing",
+      "count": 13
+    },
+    {
+      "key_name": "Kỹ Thuật Điện",
+      "count": 13
+    },
+    {
+      "key_name": "chuyên viên khách hàng",
+      "count": 13
+    },
+    {
+      "key_name": "chuyên viên tài chính",
+      "count": 13
+    },
+    {
+      "key_name": "lương 7 triệu",
+      "count": 13
+    },
+    {
+      "key_name": "nhân viên tài chính",
+      "count": 13
+    },
+    {
+      "key_name": "nhân viên tín dụng",
+      "count": 13
+    },
+    {
+      "key_name": "thực tập sinh",
+      "count": 13
+    },
+    {
+      "key_name": "Developer",
+      "count": 12
+    },
+    {
+      "key_name": "QC",
+      "count": 12
+    },
+    {
+      "key_name": "kế toán kho",
+      "count": 12
+    },
+    {
+      "key_name": "lập trình viên",
+      "count": 12
+    },
+    {
+      "key_name": "nhân viên content",
+      "count": 12
+    },
+    {
+      "key_name": "nhân viên vận hành",
+      "count": 12
+    },
+    {
+      "key_name": "Cơ Điện",
+      "count": 11
+    },
+    {
+      "key_name": "Marketing Online",
+      "count": 11
+    },
+    {
+      "key_name": "nhân viên hành chính nhân sự",
+      "count": 11
+    },
+    {
+      "key_name": "seo",
+      "count": 11
+    },
+    {
+      "key_name": "tiếng trung",
+      "count": 11
+    },
+    {
+      "key_name": "trình dược viên",
+      "count": 11
+    },
+    {
+      "key_name": "Nhân Viên Siêu Thị",
+      "count": 10
+    },
+    {
+      "key_name": "QA",
+      "count": 10
+    },
+    {
+      "key_name": "kỹ thuật viên",
+      "count": 10
+    },
+    {
+      "key_name": "nhân viên QC",
+      "count": 10
+    },
+    {
+      "key_name": "nhân viên mỹ phẩm",
+      "count": 10
+    },
+    {
+      "key_name": "nhân viên thu ngân",
+      "count": 10
+    },
+    {
+      "key_name": "nhân viên tư vấn bán hàng",
+      "count": 10
+    },
+    {
+      "key_name": "sale admin",
+      "count": 10
+    },
+    {
+      "key_name": "thiết kế đồ họa",
+      "count": 10
+    },
+    {
+      "key_name": "Lái xe",
+      "count": 9
+    },
+    {
+      "key_name": "chuyên viên marketing",
+      "count": 9
+    },
+    {
+      "key_name": "kỹ sư xây dựng",
+      "count": 9
+    },
+    {
+      "key_name": "kỹ sư điện",
+      "count": 9
+    },
+    {
+      "key_name": "nhân viên bán thời gian",
+      "count": 9
+    },
+    {
+      "key_name": "nhân viên digital marketing",
+      "count": 9
+    },
+    {
+      "key_name": "nhân viên seo",
+      "count": 9
+    },
+    {
+      "key_name": "nhân viên tư vấn tài chính",
+      "count": 9
+    },
+    {
+      "key_name": "nhân viên văn thư",
+      "count": 9
+    },
+    {
+      "key_name": "phụ kho",
+      "count": 9
+    },
+    {
+      "key_name": "thủ kho",
+      "count": 9
+    },
+    {
+      "key_name": "tư vấn tuyển sinh",
+      "count": 9
+    },
+    {
+      "key_name": "Nhân Viên Hỗ Trợ Kinh Doanh",
+      "count": 8
+    },
+    {
+      "key_name": "Trưởng Nhóm Kinh Doanh",
+      "count": 8
+    },
+    {
+      "key_name": "chuyên viên dự án",
+      "count": 8
+    },
+    {
+      "key_name": "chuyên viên xử lý nợ",
+      "count": 8
+    },
+    {
+      "key_name": "designer",
+      "count": 8
+    },
+    {
+      "key_name": "giám đốc kinh doanh",
+      "count": 8
+    },
+    {
+      "key_name": "kế toán nội bộ",
+      "count": 8
+    },
+    {
+      "key_name": "nhân viên chất lượng",
+      "count": 8
+    },
+    {
+      "key_name": "nhân viên thú y",
+      "count": 8
+    },
+    {
+      "key_name": "online",
+      "count": 8
+    },
+    {
+      "key_name": "pr",
+      "count": 8
+    },
+    {
+      "key_name": "Công Nhân Nữ",
+      "count": 7
+    },
+    {
+      "key_name": "Facebook",
+      "count": 7
+    },
+    {
+      "key_name": "PHP",
+      "count": 7
+    },
+    {
+      "key_name": "Quản Lý kinh doanh",
+      "count": 7
+    },
+    {
+      "key_name": "Tổ Trưởng",
+      "count": 7
+    },
+    {
+      "key_name": "bán xăng",
+      "count": 7
+    },
+    {
+      "key_name": "chuyên viên tư vấn tài chính",
+      "count": 7
+    },
+    {
+      "key_name": "giám sát bán hàng",
+      "count": 7
+    },
+    {
+      "key_name": "giáo viên tiếng anh",
+      "count": 7
+    },
+    {
+      "key_name": "kế toán bán hàng",
+      "count": 7
+    },
+    {
+      "key_name": "lái xe tải",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên QA",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên an ninh",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên bảo trì",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên bảo vệ",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên cơ khí",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên cơ điện",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên kế toán kho",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên tư vấn tín dụng",
+      "count": 7
+    },
+    {
+      "key_name": "nhân viên tổng đài",
+      "count": 7
+    },
+    {
+      "key_name": "phụ xe",
+      "count": 7
+    },
+    {
+      "key_name": "phụ xe tải",
+      "count": 7
+    },
+    {
+      "key_name": "thợ hàn ống",
+      "count": 7
+    },
+    {
+      "key_name": "điện lạnh",
+      "count": 7
+    },
+    {
+      "key_name": "Bán Mỹ Phẩm",
+      "count": 6
+    },
+    {
+      "key_name": "Bảo Vệ Chung Cư",
+      "count": 6
+    },
+    {
+      "key_name": "Nhân Viên Thiết Kế Đồ Họa",
+      "count": 6
+    },
+    {
+      "key_name": "Thợ May",
+      "count": 6
+    },
+    {
+      "key_name": "Trưởng Phòng Marketing",
+      "count": 6
+    },
+    {
+      "key_name": "bảo vệ siêu thị",
+      "count": 6
+    },
+    {
+      "key_name": "chuyên viên hoạch định tài chính",
+      "count": 6
+    },
+    {
+      "key_name": "cộng tác viên làm việc tại nhà",
+      "count": 6
+    },
+    {
+      "key_name": "kế toán trưởng",
+      "count": 6
+    },
+    {
+      "key_name": "kỹ sư cơ khí",
+      "count": 6
+    },
+    {
+      "key_name": "lương 6 triệu",
+      "count": 6
+    },
+    {
+      "key_name": "nhà báo",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên hàng không",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên kiểm hàng",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên lắp đặt",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên marketing online",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên qa qc",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên sale online",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên theo dõi đơn hàng",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên thu hồi nợ",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên tư vấn tuyển sinh",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên vận hành máy",
+      "count": 6
+    },
+    {
+      "key_name": "nhân viên xử lý đơn hàng",
+      "count": 6
+    },
+    {
+      "key_name": "quản lý chất lượng",
+      "count": 6
+    },
+    {
+      "key_name": "thợ hàn",
+      "count": 6
+    },
+    {
+      "key_name": "thợ máy",
+      "count": 6
+    },
+    {
+      "key_name": "thợ điện",
+      "count": 6
+    },
+    {
+      "key_name": "tiếng nhật",
+      "count": 6
+    },
+    {
+      "key_name": "trình dược viên otc",
+      "count": 6
+    },
+    {
+      "key_name": "trợ lý giám đốc",
+      "count": 6
+    },
+    {
+      "key_name": "xử lý đơn hàng",
+      "count": 6
+    },
+    {
+      "key_name": "Bếp",
+      "count": 5
+    },
+    {
+      "key_name": "Kỹ Sư Hệ Thống",
+      "count": 5
+    },
+    {
+      "key_name": "Lễ Tân Hành Chính",
+      "count": 5
+    },
+    {
+      "key_name": "Thợ Phụ",
+      "count": 5
+    },
+    {
+      "key_name": "Trợ Lý Nhân Sự",
+      "count": 5
+    },
+    {
+      "key_name": "bán hàng siêu thị",
+      "count": 5
+    },
+    {
+      "key_name": "chuyên viên tín dụng",
+      "count": 5
+    },
+    {
+      "key_name": "chuyên viên đầu tư",
+      "count": 5
+    },
+    {
+      "key_name": "công nhân may",
+      "count": 5
+    },
+    {
+      "key_name": "gia công",
+      "count": 5
+    },
+    {
+      "key_name": "giám sát camera",
+      "count": 5
+    },
+    {
+      "key_name": "hộ lý",
+      "count": 5
+    },
+    {
+      "key_name": "java",
+      "count": 5
+    },
+    {
+      "key_name": "khách sạn",
+      "count": 5
+    },
+    {
+      "key_name": "không cần bằng cấp",
+      "count": 5
+    },
+    {
+      "key_name": "kiến trúc sư",
+      "count": 5
+    },
+    {
+      "key_name": "nhà sách",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên chốt đơn hàng",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên kcs",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên phục vụ nhà hàng",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên sale admin",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên tiếng nhật",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên tiếng trung",
+      "count": 5
+    },
+    {
+      "key_name": "nhân viên y tế",
+      "count": 5
+    },
+    {
+      "key_name": "phục vụ nhà hàng",
+      "count": 5
+    },
+    {
+      "key_name": "thiết kế nội thất",
+      "count": 5
+    },
+    {
+      "key_name": "thợ tiện",
+      "count": 5
+    },
+    {
+      "key_name": "thực tập kinh doanh",
+      "count": 5
+    },
+    {
+      "key_name": "thực tập nhân sự",
+      "count": 5
+    },
+    {
+      "key_name": "tiếng hàn",
+      "count": 5
+    },
+    {
+      "key_name": "trưởng phòng kinh doanh bất động sản",
+      "count": 5
+    },
+    {
+      "key_name": "tài xế giao hàng",
+      "count": 5
+    },
+    {
+      "key_name": "tổng đài viên",
+      "count": 5
+    },
+    {
+      "key_name": "vệ sĩ",
+      "count": 5
+    },
+    {
+      "key_name": "Điều Dưỡng",
+      "count": 5
+    },
+    {
+      "key_name": "Android",
+      "count": 4
+    },
+    {
+      "key_name": "Dịch Vụ Khách Hàng",
+      "count": 4
+    },
+    {
+      "key_name": "Facebook ads",
+      "count": 4
+    },
+    {
+      "key_name": "Graphic Design",
+      "count": 4
+    },
+    {
+      "key_name": "Kỹ Sư Dự Án",
+      "count": 4
+    },
+    {
+      "key_name": "Kỹ Sư Điện Tử",
+      "count": 4
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Nội Thất",
+      "count": 4
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Phần Mềm",
+      "count": 4
+    },
+    {
+      "key_name": "Nhân Viên Phục Vụ",
+      "count": 4
+    },
+    {
+      "key_name": "Phó Giám Đốc",
+      "count": 4
+    },
+    {
+      "key_name": "Sales Executive",
+      "count": 4
+    },
+    {
+      "key_name": "Thợ Cơ Khí",
+      "count": 4
+    },
+    {
+      "key_name": "Trợ Lý Tiếng Trung",
+      "count": 4
+    },
+    {
+      "key_name": "Trợ Lý Văn Phòng",
+      "count": 4
+    },
+    {
+      "key_name": "Trực Tổng Đài",
+      "count": 4
+    },
+    {
+      "key_name": "backend developer",
+      "count": 4
+    },
+    {
+      "key_name": "bán xăng dầu",
+      "count": 4
+    },
+    {
+      "key_name": "bảo trì điện",
+      "count": 4
+    },
+    {
+      "key_name": "bảo vệ ngân hàng",
+      "count": 4
+    },
+    {
+      "key_name": "bảo vệ nội bộ",
+      "count": 4
+    },
+    {
+      "key_name": "ca sĩ",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên chăm sóc khách hàng",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên hành chính",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên ngân hàng",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên nhân sự",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên tư vấn ngân hàng",
+      "count": 4
+    },
+    {
+      "key_name": "chuyên viên tư vấn đầu tư",
+      "count": 4
+    },
+    {
+      "key_name": "cán bộ kỹ thuật",
+      "count": 4
+    },
+    {
+      "key_name": "cửa hàng trưởng",
+      "count": 4
+    },
+    {
+      "key_name": "full stack developer",
+      "count": 4
+    },
+    {
+      "key_name": "giám sát kho",
+      "count": 4
+    },
+    {
+      "key_name": "giám sát nội thất",
+      "count": 4
+    },
+    {
+      "key_name": "kinh doanh nội thất",
+      "count": 4
+    },
+    {
+      "key_name": "kinh doanh online",
+      "count": 4
+    },
+    {
+      "key_name": "kế toán giá thành",
+      "count": 4
+    },
+    {
+      "key_name": "kỹ thuật cơ khí",
+      "count": 4
+    },
+    {
+      "key_name": "lái xe",
+      "count": 4
+    },
+    {
+      "key_name": "lái xe hạng c",
+      "count": 4
+    },
+    {
+      "key_name": "lương 15 triệu",
+      "count": 4
+    },
+    {
+      "key_name": "lập trình Web",
+      "count": 4
+    },
+    {
+      "key_name": "lập trình viên java",
+      "count": 4
+    },
+    {
+      "key_name": "marketing",
+      "count": 4
+    },
+    {
+      "key_name": "ngân hàng",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên bán hàng mỹ phẩm",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên bán hàng showroom",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên bếp",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên hỗ trợ khách hàng",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên kế hoạch",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên lễ tân văn phòng",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên quảng cáo",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên thiết kế nội thất",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên thương mại điện tử",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên thống kê",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên tiếng hàn",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên tư vấn bất động sản",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên vật tư",
+      "count": 4
+    },
+    {
+      "key_name": "nhân viên điều phối",
+      "count": 4
+    },
+    {
+      "key_name": "part time buổi tối",
+      "count": 4
+    },
+    {
+      "key_name": "phiên dịch tiếng Trung",
+      "count": 4
+    },
+    {
+      "key_name": "pháp chế",
+      "count": 4
+    },
+    {
+      "key_name": "phóng viên",
+      "count": 4
+    },
+    {
+      "key_name": "phụ hồ",
+      "count": 4
+    },
+    {
+      "key_name": "quan hệ khách hàng",
+      "count": 4
+    },
+    {
+      "key_name": "quản lý nhà hàng",
+      "count": 4
+    },
+    {
+      "key_name": "quản lý vùng",
+      "count": 4
+    },
+    {
+      "key_name": "revit",
+      "count": 4
+    },
+    {
+      "key_name": "sale tài chính",
+      "count": 4
+    },
+    {
+      "key_name": "telesale tài chính",
+      "count": 4
+    },
+    {
+      "key_name": "tester",
+      "count": 4
+    },
+    {
+      "key_name": "thiết kế thời trang",
+      "count": 4
+    },
+    {
+      "key_name": "thợ bế",
+      "count": 4
+    },
+    {
+      "key_name": "thợ hồ",
+      "count": 4
+    },
+    {
+      "key_name": "thực tập sinh marketing",
+      "count": 4
+    },
+    {
+      "key_name": "thực tập sinh nhân sự",
+      "count": 4
+    },
+    {
+      "key_name": "trông quán net",
+      "count": 4
+    },
+    {
+      "key_name": "tài chính ngân hàng",
+      "count": 4
+    },
+    {
+      "key_name": "tư vấn du học",
+      "count": 4
+    },
+    {
+      "key_name": "xuất nhập khẩu",
+      "count": 4
+    },
+    {
+      "key_name": "điện công nghiệp",
+      "count": 4
+    },
+    {
+      "key_name": "đại diện kinh doanh",
+      "count": 4
+    },
+    {
+      "key_name": ".Net Developer",
+      "count": 3
+    },
+    {
+      "key_name": "Asp Net",
+      "count": 3
+    },
+    {
+      "key_name": "Bán Hàng Shop",
+      "count": 3
+    },
+    {
+      "key_name": "Bảo Vệ Nhà Hàng",
+      "count": 3
+    },
+    {
+      "key_name": "Chạy Quảng Cáo",
+      "count": 3
+    },
+    {
+      "key_name": "Công Nhân Nam",
+      "count": 3
+    },
+    {
+      "key_name": "Giao Hàng Bằng Xe Máy",
+      "count": 3
+    },
+    {
+      "key_name": "Giám Đốc Dự Án",
+      "count": 3
+    },
+    {
+      "key_name": "Giám Đốc Khu Vực",
+      "count": 3
+    },
+    {
+      "key_name": "IT Manager",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Cơ Điện",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Hiện Trường",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Kinh Doanh",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Lập Trình",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Phần Mềm",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Thiết Kế Điện",
+      "count": 3
+    },
+    {
+      "key_name": "Kỹ Sư Ô Tô",
+      "count": 3
+    },
+    {
+      "key_name": "Lái Xe Văn Phòng",
+      "count": 3
+    },
+    {
+      "key_name": "Lập Trình C#",
+      "count": 3
+    },
+    {
+      "key_name": "Marketing Executive",
+      "count": 3
+    },
+    {
+      "key_name": "Nhân Viên Bán Hàng Siêu Thị Mini",
+      "count": 3
+    },
+    {
+      "key_name": "Nhân Viên Cửa Hàng Tiện Lợi",
+      "count": 3
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Online",
+      "count": 3
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Quốc Tế",
+      "count": 3
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Ô TÔ",
+      "count": 3
+    },
+    {
+      "key_name": "PB",
+      "count": 3
+    },
+    {
+      "key_name": "PG",
+      "count": 3
+    },
+    {
+      "key_name": "PR Manager",
+      "count": 3
+    },
+    {
+      "key_name": "Phó Phòng Kinh Doanh",
+      "count": 3
+    },
+    {
+      "key_name": "Phụ Xe Giao Hàng",
+      "count": 3
+    },
+    {
+      "key_name": "React Native",
+      "count": 3
+    },
+    {
+      "key_name": "Sale Executive",
+      "count": 3
+    },
+    {
+      "key_name": "Sale Nhà Hàng",
+      "count": 3
+    },
+    {
+      "key_name": "Thu Hồi Nợ Qua Điện Thoại",
+      "count": 3
+    },
+    {
+      "key_name": "Thợ Mộc",
+      "count": 3
+    },
+    {
+      "key_name": "Trưởng Phòng Dự Án",
+      "count": 3
+    },
+    {
+      "key_name": "Trưởng Phòng Hành Chính",
+      "count": 3
+    },
+    {
+      "key_name": "Trưởng Phòng Hành Chính Nhân Sự",
+      "count": 3
+    },
+    {
+      "key_name": "Trưởng Phòng It",
+      "count": 3
+    },
+    {
+      "key_name": "Trưởng Phòng Kỹ Thuật",
+      "count": 3
+    },
+    {
+      "key_name": "biên dịch",
+      "count": 3
+    },
+    {
+      "key_name": "bán hàng tết",
+      "count": 3
+    },
+    {
+      "key_name": "bán sữa",
+      "count": 3
+    },
+    {
+      "key_name": "bán điện thoại",
+      "count": 3
+    },
+    {
+      "key_name": "bảo vệ",
+      "count": 3
+    },
+    {
+      "key_name": "bảo vệ bao ăn ở",
+      "count": 3
+    },
+    {
+      "key_name": "bếp chính",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên hành chính nhân sự",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên kế toán",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên mua hàng",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên pháp lý",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên phân tích",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên quảng cáo",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên seo",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên thiết kế",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên thu hồi nợ",
+      "count": 3
+    },
+    {
+      "key_name": "chuyên viên truyền thông",
+      "count": 3
+    },
+    {
+      "key_name": "chăm sóc khách hàng",
+      "count": 3
+    },
+    {
+      "key_name": "chỉ huy trưởng",
+      "count": 3
+    },
+    {
+      "key_name": "chứng từ xuất nhập khẩu",
+      "count": 3
+    },
+    {
+      "key_name": "công nhân cơ khí",
+      "count": 3
+    },
+    {
+      "key_name": "công nhân kho",
+      "count": 3
+    },
+    {
+      "key_name": "công nhân sản xuất",
+      "count": 3
+    },
+    {
+      "key_name": "công nhân điện",
+      "count": 3
+    },
+    {
+      "key_name": "cộng tác viên bán hàng",
+      "count": 3
+    },
+    {
+      "key_name": "cộng tác viên kinh doanh",
+      "count": 3
+    },
+    {
+      "key_name": "fresher",
+      "count": 3
+    },
+    {
+      "key_name": "gia sư",
+      "count": 3
+    },
+    {
+      "key_name": "giao nhận",
+      "count": 3
+    },
+    {
+      "key_name": "giám sát an ninh",
+      "count": 3
+    },
+    {
+      "key_name": "giám sát công trình",
+      "count": 3
+    },
+    {
+      "key_name": "giám sát kinh doanh",
+      "count": 3
+    },
+    {
+      "key_name": "giám sát thi công",
+      "count": 3
+    },
+    {
+      "key_name": "giám sát thi công nội thất",
+      "count": 3
+    },
+    {
+      "key_name": "giám đốc kinh doanh bất động sản",
+      "count": 3
+    },
+    {
+      "key_name": "giáo viên mầm non",
+      "count": 3
+    },
+    {
+      "key_name": "giáo viên tin học",
+      "count": 3
+    },
+    {
+      "key_name": "giáo viên toán",
+      "count": 3
+    },
+    {
+      "key_name": "giờ hành chính",
+      "count": 3
+    },
+    {
+      "key_name": "it helpdesk",
+      "count": 3
+    },
+    {
+      "key_name": "kho vận",
+      "count": 3
+    },
+    {
+      "key_name": "kinh doanh mỹ phẩm",
+      "count": 3
+    },
+    {
+      "key_name": "kinh doanh phần mềm",
+      "count": 3
+    },
+    {
+      "key_name": "kinh doanh ô tô",
+      "count": 3
+    },
+    {
+      "key_name": "kế toán nhà hàng",
+      "count": 3
+    },
+    {
+      "key_name": "kế toán thanh toán",
+      "count": 3
+    },
+    {
+      "key_name": "kế toán thuế",
+      "count": 3
+    },
+    {
+      "key_name": "kỹ thuật may",
+      "count": 3
+    },
+    {
+      "key_name": "kỹ thuật máy tính",
+      "count": 3
+    },
+    {
+      "key_name": "lái xe hạng E",
+      "count": 3
+    },
+    {
+      "key_name": "lập trình front end",
+      "count": 3
+    },
+    {
+      "key_name": "lễ tân",
+      "count": 3
+    },
+    {
+      "key_name": "lễ tân văn phòng",
+      "count": 3
+    },
+    {
+      "key_name": "mobile developer",
+      "count": 3
+    },
+    {
+      "key_name": "nhà hàng nhật",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng kỹ thuật",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng nội thất",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng online",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng qua điện thoại",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng thời trang",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán hàng tết",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bán vé",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên bảo trì điện",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên cafe",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên chứng khoán",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên chứng từ xuất nhập khẩu",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên dịch vụ khách hàng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên dự toán",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên facebook ads",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên giao hàng bằng xe máy",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên hành chính tổng hợp",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên it phần cứng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kinh doanh du lịch",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kinh doanh phân bón",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kinh doanh phụ tùng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kiểm soát",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kế toán bán hàng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kế toán thanh toán",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kế toán thuế",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên kỹ thuật cơ điện",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên may mẫu",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên mua hàng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên nhập liệu",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên phát triển kinh doanh",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên quản lý đơn hàng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên quảng cáo facebook",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên sale marketing",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên sale tour",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên sự kiện",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên thu mua",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên thư viện",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên thời vụ tết",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên triển khai phần mềm",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn bảo hiểm",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn du học",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn khóa học",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn online",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn qua điện thoại",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên tư vấn trả góp",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên xác nhận đơn hàng",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên xử lý dữ liệu",
+      "count": 3
+    },
+    {
+      "key_name": "nhân viên đối ngoại",
+      "count": 3
+    },
+    {
+      "key_name": "nhập liệu",
+      "count": 3
+    },
+    {
+      "key_name": "phụ tá",
+      "count": 3
+    },
+    {
+      "key_name": "phục vụ",
+      "count": 3
+    },
+    {
+      "key_name": "project manager",
+      "count": 3
+    },
+    {
+      "key_name": "python",
+      "count": 3
+    },
+    {
+      "key_name": "quản lý bán hàng",
+      "count": 3
+    },
+    {
+      "key_name": "quản lý cửa hàng",
+      "count": 3
+    },
+    {
+      "key_name": "quản lý dự án",
+      "count": 3
+    },
+    {
+      "key_name": "sale logistics",
+      "count": 3
+    },
+    {
+      "key_name": "senior developer",
+      "count": 3
+    },
+    {
+      "key_name": "ship hàng",
+      "count": 3
+    },
+    {
+      "key_name": "software developer",
+      "count": 3
+    },
+    {
+      "key_name": "sửa chữa ô tô",
+      "count": 3
+    },
+    {
+      "key_name": "sửa máy in",
+      "count": 3
+    },
+    {
+      "key_name": "sửa ảnh",
+      "count": 3
+    },
+    {
+      "key_name": "team leader",
+      "count": 3
+    },
+    {
+      "key_name": "thu mua",
+      "count": 3
+    },
+    {
+      "key_name": "thu ngân nhà hàng",
+      "count": 3
+    },
+    {
+      "key_name": "thư ký giám đốc",
+      "count": 3
+    },
+    {
+      "key_name": "thư ký văn phòng",
+      "count": 3
+    },
+    {
+      "key_name": "thẩm mỹ viện",
+      "count": 3
+    },
+    {
+      "key_name": "thợ in",
+      "count": 3
+    },
+    {
+      "key_name": "thợ quảng cáo",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập có lương",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập sinh IT",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập sinh content",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập sinh hành chính",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập sinh kế toán",
+      "count": 3
+    },
+    {
+      "key_name": "thực tập sinh thiết kế",
+      "count": 3
+    },
+    {
+      "key_name": "triển khai phần mềm",
+      "count": 3
+    },
+    {
+      "key_name": "trưởng phòng kế toán",
+      "count": 3
+    },
+    {
+      "key_name": "trợ giảng",
+      "count": 3
+    },
+    {
+      "key_name": "trợ lý tổng giám đốc",
+      "count": 3
+    },
+    {
+      "key_name": "tài xế xe tải",
+      "count": 3
+    },
+    {
+      "key_name": "tư vấn giáo dục",
+      "count": 3
+    },
+    {
+      "key_name": "tư vấn online",
+      "count": 3
+    },
+    {
+      "key_name": "văn phòng",
+      "count": 3
+    },
+    {
+      "key_name": "đứng máy CNC",
+      "count": 3
+    },
+    {
+      "key_name": "Account Executive",
+      "count": 2
+    },
+    {
+      "key_name": "Android Developer",
+      "count": 2
+    },
+    {
+      "key_name": "Biên Dịch Tiếng Anh",
+      "count": 2
+    },
+    {
+      "key_name": "Business Analyst",
+      "count": 2
+    },
+    {
+      "key_name": "Bác Sĩ",
+      "count": 2
+    },
+    {
+      "key_name": "Bán Vé Xem Phim",
+      "count": 2
+    },
+    {
+      "key_name": "Cho Người Về Hưu",
+      "count": 2
+    },
+    {
+      "key_name": "Công Nhân Cơ Điện",
+      "count": 2
+    },
+    {
+      "key_name": "Công Nhân Thời Vụ",
+      "count": 2
+    },
+    {
+      "key_name": "Công Nhân Điện Nước",
+      "count": 2
+    },
+    {
+      "key_name": "Cộng Tác Viên Marketing",
+      "count": 2
+    },
+    {
+      "key_name": "Cộng Tác Viên Thiết Kế",
+      "count": 2
+    },
+    {
+      "key_name": "Cộng Tác Viên Thu Âm",
+      "count": 2
+    },
+    {
+      "key_name": "Digital Marketing Executive",
+      "count": 2
+    },
+    {
+      "key_name": "Dựng Phim",
+      "count": 2
+    },
+    {
+      "key_name": "ERP",
+      "count": 2
+    },
+    {
+      "key_name": "Giám Đốc Marketing",
+      "count": 2
+    },
+    {
+      "key_name": "Giám Đốc Tài Chính",
+      "count": 2
+    },
+    {
+      "key_name": "Giữ Xe Nhà Hàng",
+      "count": 2
+    },
+    {
+      "key_name": "IT Support",
+      "count": 2
+    },
+    {
+      "key_name": "Kế Toán Hóa Đơn",
+      "count": 2
+    },
+    {
+      "key_name": "Kế Toán Tiền Lương",
+      "count": 2
+    },
+    {
+      "key_name": "Kế Toán Xây Dựng",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Dự Toán",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Giám Sát Công Trình",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Hàn",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Kết Cấu",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư QC",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Qa",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Sư Trưởng",
+      "count": 2
+    },
+    {
+      "key_name": "Kỹ Thuật Bảo Hành",
+      "count": 2
+    },
+    {
+      "key_name": "Lái Xe Cho Giám Đốc",
+      "count": 2
+    },
+    {
+      "key_name": "Lái Xe Công Ty",
+      "count": 2
+    },
+    {
+      "key_name": "Lái Xe Lương Cao",
+      "count": 2
+    },
+    {
+      "key_name": "Lập Trình Cnc",
+      "count": 2
+    },
+    {
+      "key_name": "Magento",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Biết Tiếng Trung",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Bán Xe Máy",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Giao Nhận",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Biết Tiếng Anh",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Dược Phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh In Ấn",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Logistics",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Mỹ Phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Sơn",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Thép",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Website",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Kinh Doanh Xuất Nhập Khẩu",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Phục Vụ Bar",
+      "count": 2
+    },
+    {
+      "key_name": "Nhân Viên Tiếp Thị",
+      "count": 2
+    },
+    {
+      "key_name": "Pha Chế",
+      "count": 2
+    },
+    {
+      "key_name": "Phát Tờ Rơi",
+      "count": 2
+    },
+    {
+      "key_name": "Phục Vụ Nữ",
+      "count": 2
+    },
+    {
+      "key_name": "Quản Lý Fanpage",
+      "count": 2
+    },
+    {
+      "key_name": "Quản Lý Page",
+      "count": 2
+    },
+    {
+      "key_name": "Quản Lý Thời Trang",
+      "count": 2
+    },
+    {
+      "key_name": "Thiết Kế Online",
+      "count": 2
+    },
+    {
+      "key_name": "Thiết Kế Sản Phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "Thiết Kế Ô Tô",
+      "count": 2
+    },
+    {
+      "key_name": "Thu Ngân Bán Hàng",
+      "count": 2
+    },
+    {
+      "key_name": "Thợ Inox",
+      "count": 2
+    },
+    {
+      "key_name": "Thợ Ủi",
+      "count": 2
+    },
+    {
+      "key_name": "Thực tập game developer",
+      "count": 2
+    },
+    {
+      "key_name": "Trade Marketing",
+      "count": 2
+    },
+    {
+      "key_name": "Trưởng Phòng Chăm Sóc Khách Hàng",
+      "count": 2
+    },
+    {
+      "key_name": "Trưởng Phòng Marketing Online",
+      "count": 2
+    },
+    {
+      "key_name": "Trưởng Phòng Telesale",
+      "count": 2
+    },
+    {
+      "key_name": "Trưởng Phòng Đào Tạo",
+      "count": 2
+    },
+    {
+      "key_name": "Trợ Lý Dự Án",
+      "count": 2
+    },
+    {
+      "key_name": "Trợ Lý Sản Xuất",
+      "count": 2
+    },
+    {
+      "key_name": "Tài Xế B2",
+      "count": 2
+    },
+    {
+      "key_name": "admin văn phòng",
+      "count": 2
+    },
+    {
+      "key_name": "an ninh nội bộ",
+      "count": 2
+    },
+    {
+      "key_name": "biên dịch tiếng Nhật",
+      "count": 2
+    },
+    {
+      "key_name": "biên tập viên",
+      "count": 2
+    },
+    {
+      "key_name": "buồng phòng",
+      "count": 2
+    },
+    {
+      "key_name": "bác sĩ mắt",
+      "count": 2
+    },
+    {
+      "key_name": "bán hàng online",
+      "count": 2
+    },
+    {
+      "key_name": "bán vé máy bay",
+      "count": 2
+    },
+    {
+      "key_name": "bảo mẫu",
+      "count": 2
+    },
+    {
+      "key_name": "bảo trì điện lạnh",
+      "count": 2
+    },
+    {
+      "key_name": "bảo trì điện nước",
+      "count": 2
+    },
+    {
+      "key_name": "bảo vệ giữ xe",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên PR",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên hành chính tổng hợp",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên kinh tế",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên kỹ thuật",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên pháp chế",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên phát triển sản phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên phân tích nghiệp vụ",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên quản lý dự án",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên thẩm mỹ",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên tư vấn du học",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên tư vấn giáo dục",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên tư vấn khách hàng",
+      "count": 2
+    },
+    {
+      "key_name": "chuyên viên xuất nhập khẩu",
+      "count": 2
+    },
+    {
+      "key_name": "content fanpage",
+      "count": 2
+    },
+    {
+      "key_name": "css",
+      "count": 2
+    },
+    {
+      "key_name": "công nhân hàn",
+      "count": 2
+    },
+    {
+      "key_name": "công nhân khu công nghệ cao",
+      "count": 2
+    },
+    {
+      "key_name": "công nhân kỹ thuật",
+      "count": 2
+    },
+    {
+      "key_name": "công nhân phổ thông",
+      "count": 2
+    },
+    {
+      "key_name": "cố vấn dịch vụ",
+      "count": 2
+    },
+    {
+      "key_name": "cố vấn dịch vụ ô tô",
+      "count": 2
+    },
+    {
+      "key_name": "cộng tác viên viết bài",
+      "count": 2
+    },
+    {
+      "key_name": "cửa hàng phó",
+      "count": 2
+    },
+    {
+      "key_name": "cửa hàng trưởng thời trang",
+      "count": 2
+    },
+    {
+      "key_name": "dược sĩ",
+      "count": 2
+    },
+    {
+      "key_name": "giám sát công trình nội thất",
+      "count": 2
+    },
+    {
+      "key_name": "giám sát cửa hàng",
+      "count": 2
+    },
+    {
+      "key_name": "giám sát vệ sinh",
+      "count": 2
+    },
+    {
+      "key_name": "giáo viên lý",
+      "count": 2
+    },
+    {
+      "key_name": "giáo viên tiếng Hàn",
+      "count": 2
+    },
+    {
+      "key_name": "giáo viên tiếng anh part time",
+      "count": 2
+    },
+    {
+      "key_name": "giáo viên tiếng nhật",
+      "count": 2
+    },
+    {
+      "key_name": "giáo viên tiếng trung",
+      "count": 2
+    },
+    {
+      "key_name": "giảng viên",
+      "count": 2
+    },
+    {
+      "key_name": "giữ trẻ",
+      "count": 2
+    },
+    {
+      "key_name": "hiệu trưởng",
+      "count": 2
+    },
+    {
+      "key_name": "họa viên kiến trúc",
+      "count": 2
+    },
+    {
+      "key_name": "kinh doanh kênh siêu thị",
+      "count": 2
+    },
+    {
+      "key_name": "kiến trúc sư công trình",
+      "count": 2
+    },
+    {
+      "key_name": "kiểm toán nội bộ",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán công nợ",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán doanh nghiệp",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán không yêu cầu kinh nghiệm",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán thu ngân",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán tại nhà",
+      "count": 2
+    },
+    {
+      "key_name": "kế toán tổng hợp nội bộ",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ sư cấp thoát nước",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ sư qs",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ sư thiết kế cơ khí",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ sư điện điện tử",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ thuật công trình",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ thuật hiện trường",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ thuật viên xét nghiệm",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ thuật viên ô tô",
+      "count": 2
+    },
+    {
+      "key_name": "kỹ thuật xây dựng",
+      "count": 2
+    },
+    {
+      "key_name": "lái xe b2",
+      "count": 2
+    },
+    {
+      "key_name": "lái xe bằng D",
+      "count": 2
+    },
+    {
+      "key_name": "lái xe con",
+      "count": 2
+    },
+    {
+      "key_name": "lương 20 triệu",
+      "count": 2
+    },
+    {
+      "key_name": "lập trình Mobile",
+      "count": 2
+    },
+    {
+      "key_name": "lập trình viên android",
+      "count": 2
+    },
+    {
+      "key_name": "lập trình viên c#",
+      "count": 2
+    },
+    {
+      "key_name": "lập trình viên php",
+      "count": 2
+    },
+    {
+      "key_name": "lắp ráp điện tử",
+      "count": 2
+    },
+    {
+      "key_name": "marketing bất động sản",
+      "count": 2
+    },
+    {
+      "key_name": "marketing manager",
+      "count": 2
+    },
+    {
+      "key_name": "môi giới chứng khoán",
+      "count": 2
+    },
+    {
+      "key_name": "nhân sự",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bar",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên biên tập",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán hàng part time",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán hàng vinmart",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán sữa",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán xăng dầu",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán điện thoại",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bán đồng hồ",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bảo hiểm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bảo hiểm nhân thọ",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên bảo trì máy",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên c&b",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên chăm sóc da",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên chế bản",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên chỉnh sửa hình ảnh",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên chở hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên cung ứng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên cây xăng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên du lịch",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên dịch thuật",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên dựng phim",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên ghi danh",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên giao nhận hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên gis",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên giữ xe",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên hóa nghiệm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên hỗ trợ kỹ thuật",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên iso",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kho siêu thị",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh bảo hiểm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh hóa chất",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh kênh mt",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh kênh siêu thị",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh nhôm kính",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh part time",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh thang máy",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh thiết bị y tế",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh thực phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kinh doanh vận tải",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kế hoạch sản xuất",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên kỹ thuật sản xuất",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên làm tết",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên lắp đặt camera",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên ngân hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên nhắc nợ qua điện thoại",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên order",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên pg",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên pháp chế",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên pháp lý",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên phát triển sản phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên quan hệ khách hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên quản lý chất lượng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên quản lý dự án",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên quản lý kho",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên quản trị website",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên r&d",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên spa",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên sản xuất",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên tester",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên thiết kế 3D",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên thiết kế in ấn",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên thiết kế rập",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên thẩm định",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên thẩm định hồ sơ",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên truyền thông nội bộ",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên trà sữa",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên trưng bày",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên trực điện thoại",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên tín dụng ngân hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên tư vấn dinh dưỡng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên tư vấn mỹ phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên tư vấn thẻ tín dụng",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên điều hành tour",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên đăng tin",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên đăng tin quảng cáo",
+      "count": 2
+    },
+    {
+      "key_name": "nhân viên đặt hàng",
+      "count": 2
+    },
+    {
+      "key_name": "nhập liệu tại nhà",
+      "count": 2
+    },
+    {
+      "key_name": "nhặt bóng tennis",
+      "count": 2
+    },
+    {
+      "key_name": "nodejs",
+      "count": 2
+    },
+    {
+      "key_name": "nữ hộ sinh",
+      "count": 2
+    },
+    {
+      "key_name": "online tại nhà",
+      "count": 2
+    },
+    {
+      "key_name": "operation executive",
+      "count": 2
+    },
+    {
+      "key_name": "phiên dịch",
+      "count": 2
+    },
+    {
+      "key_name": "phiên dịch tiếng anh",
+      "count": 2
+    },
+    {
+      "key_name": "phó giám đốc kinh doanh",
+      "count": 2
+    },
+    {
+      "key_name": "phó tổng giám đốc",
+      "count": 2
+    },
+    {
+      "key_name": "phóng viên ảnh",
+      "count": 2
+    },
+    {
+      "key_name": "phụ bếp",
+      "count": 2
+    },
+    {
+      "key_name": "phụ quán ăn",
+      "count": 2
+    },
+    {
+      "key_name": "phục vụ bar",
+      "count": 2
+    },
+    {
+      "key_name": "phục vụ part time",
+      "count": 2
+    },
+    {
+      "key_name": "phục vụ quán cafe",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý cửa hàng thời trang",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý khu vực",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý kinh doanh",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý sản phẩm",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý sản xuất",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý tòa nhà",
+      "count": 2
+    },
+    {
+      "key_name": "quản lý xưởng sản xuất",
+      "count": 2
+    },
+    {
+      "key_name": "quản trị hệ thống",
+      "count": 2
+    },
+    {
+      "key_name": "quản đốc",
+      "count": 2
+    },
+    {
+      "key_name": "quản đốc xưởng",
+      "count": 2
+    },
+    {
+      "key_name": "social media",
+      "count": 2
+    },
+    {
+      "key_name": "spa",
+      "count": 2
+    },
+    {
+      "key_name": "sql",
+      "count": 2
+    },
+    {
+      "key_name": "sửa xe",
+      "count": 2
+    },
+    {
+      "key_name": "telesale part time",
+      "count": 2
+    },
+    {
+      "key_name": "thiết kế in ấn",
+      "count": 2
+    },
+    {
+      "key_name": "thiết kế kiến trúc",
+      "count": 2
+    },
+    {
+      "key_name": "thiết kế rập",
+      "count": 2
+    },
+    {
+      "key_name": "thu ngân siêu thị",
+      "count": 2
+    },
+    {
+      "key_name": "thông dịch viên",
+      "count": 2
+    },
+    {
+      "key_name": "thư ký dự án",
+      "count": 2
+    },
+    {
+      "key_name": "thợ hàn inox",
+      "count": 2
+    },
+    {
+      "key_name": "thợ nhôm kính",
+      "count": 2
+    },
+    {
+      "key_name": "thợ phụ cơ khí",
+      "count": 2
+    },
+    {
+      "key_name": "thợ phụ mộc",
+      "count": 2
+    },
+    {
+      "key_name": "thợ sơn",
+      "count": 2
+    },
+    {
+      "key_name": "thợ sửa chữa ô tô",
+      "count": 2
+    },
+    {
+      "key_name": "thợ vẽ",
+      "count": 2
+    },
+    {
+      "key_name": "thợ điện lạnh",
+      "count": 2
+    },
+    {
+      "key_name": "thợ điện nước",
+      "count": 2
+    },
+    {
+      "key_name": "thủ quỹ",
+      "count": 2
+    },
+    {
+      "key_name": "tiếng nhật N3",
+      "count": 2
+    },
+    {
+      "key_name": "tiếp tân",
+      "count": 2
+    },
+    {
+      "key_name": "trình dược viên etc",
+      "count": 2
+    },
+    {
+      "key_name": "trưởng nhóm chăm sóc khách hàng",
+      "count": 2
+    },
+    {
+      "key_name": "trưởng phòng kế hoạch",
+      "count": 2
+    },
+    {
+      "key_name": "trưởng phòng nhân sự",
+      "count": 2
+    },
+    {
+      "key_name": "trưởng phòng tài chính",
+      "count": 2
+    },
+    {
+      "key_name": "trợ giảng tiếng anh",
+      "count": 2
+    },
+    {
+      "key_name": "trợ lý quản lý nhà hàng",
+      "count": 2
+    },
+    {
+      "key_name": "trực Camera",
+      "count": 2
+    },
+    {
+      "key_name": "tài chính kế toán",
+      "count": 2
+    },
+    {
+      "key_name": "ui designer",
+      "count": 2
+    },
+    {
+      "key_name": "vuejs",
+      "count": 2
+    },
+    {
+      "key_name": "vận hành cnc",
+      "count": 2
+    },
+    {
+      "key_name": "web developer",
+      "count": 2
+    },
+    {
+      "key_name": "y tế công ty",
+      "count": 2
+    },
+    {
+      "key_name": "ép nhựa",
+      "count": 2
+    },
+    {
+      "key_name": "điều hành tour",
+      "count": 2
+    },
+    {
+      "key_name": "đại diện thương mại",
+      "count": 2
+    }
+  ]
+}
