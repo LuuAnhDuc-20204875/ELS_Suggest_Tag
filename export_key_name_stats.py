@@ -12,7 +12,7 @@ from typing import Any, Dict, List
 from pymongo import MongoClient
 
 
-DEFAULT_MONGO_URI = os.getenv("MONGO_URI", "mongodb://myuser_duc:Anhduc14062002%40%23%24@123.24.206.25:27017/?authSource=admin")
+DEFAULT_MONGO_URI = os.getenv("MONGO_URI", "").strip()
 DEFAULT_DB = "TAG_SEARCH"
 DEFAULT_COLL = "TAG_SEARCH_DATA"
 

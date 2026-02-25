@@ -10,3 +10,17 @@ ENV/
 .env
 .env.*
 !.env.example
+
+__pycache__/
+*.pyc
+
+# Large artifacts / datasets / models
+*.pth
+data/*.json
+
+# VNCoreNLP large models/jar
+kimdan_1/py_VNcorenlp/VnCoreNLP-*.jar
+kimdan_1/py_VNcorenlp/models/**
+
+# optional: compressed
+*.xz

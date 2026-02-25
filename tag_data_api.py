@@ -20,7 +20,7 @@ ES_INDEX = os.getenv("ES_INDEX", "tag_data_v1").strip()
 HTTP_TIMEOUT = float(os.getenv("ES_TIMEOUT", "10"))
 
 # API KEY bảo vệ
-API_KEY = os.getenv("TAGDATA_API_KEY", "Hungha@#$TAGDATA_2026").strip()
+API_KEY = os.getenv("TAGDATA_API_KEY", "").strip()
 API_KEY_HEADER = "X-API-KEY"  # NodeJS gửi header này
 
 app = FastAPI(title="Tag Data API (ES Upsert + Dedup)", version="1.1.0")

@@ -16,7 +16,7 @@ from pymongo import MongoClient
 
 
 # ====== CONFIG ======
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://myuser_duc:Anhduc14062002%40%23%24@123.24.206.25:27017/?authSource=admin")
+MONGO_URI = os.getenv("MONGO_URI", "").strip()
 MONGO_DB = os.getenv("MONGO_DB", "TAG_SEARCH")
 MONGO_COLL = os.getenv("MONGO_COLL", "TAG_SEARCH_DATA")
 
