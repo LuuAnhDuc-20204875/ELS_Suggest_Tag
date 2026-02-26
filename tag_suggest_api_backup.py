@@ -264,217 +264,7 @@ KEEP_AS_MODIFIERS = {
     "khong can kinh nghiem", "khong yeu cau kinh nghiem",
     "tieng anh", "tieng trung", "tieng nhat", "ca dem", "xoay ca"
 }
-# ================== LOCATION FILTER ==================
-# Các cụm địa danh lớn hay gặp - remove trực tiếp nếu xuất hiện độc lập
-STANDALONE_LOCATION_PHRASES = {
-    "tinh", "tinh thanh", "thanh pho", "quan", "quan huyen", "phuong", "xa", "thi tran",
-    "ha noi",
-    "hn",
-    "ho chi minh",
-    "tp ho chi minh",
-    "tphcm",
-    "sai gon",
-    "hcm",
-    "da nang",
-    "hai phong",
-    "can tho",
-    "an giang",
-    "ba ria vung tau",
-    "bac giang",
-    "bac kan",
-    "bac lieu",
-    "bac ninh",
-    "ben tre",
-    "binh dinh",
-    "binh duong",
-    "binh phuoc",
-    "binh thuan",
-    "ca mau",
-    "cao bang",
-    "dak lak",
-    "dak nong",
-    "dien bien",
-    "dong nai",
-    "dong thap",
-    "gia lai",
-    "ha giang",
-    "ha nam",
-    "ha tinh",
-    "hai duong",
-    "hau giang",
-    "hoa binh",
-    "hung yen",
-    "khanh hoa",
-    "kien giang",
-    "kon tum",
-    "lai chau",
-    "lam dong",
-    "lang son",
-    "lao cai",
-    "long an",
-    "nam dinh",
-    "nghe an",
-    "ninh binh",
-    "ninh thuan",
-    "phu tho",
-    "phu yen",
-    "quang binh",
-    "quang nam",
-    "quang ngai",
-    "quang ninh",
-    "quang tri",
-    "soc trang",
-    "son la",
-    "tay ninh",
-    "thai binh",
-    "thai nguyen",
-    "thanh hoa",
-    "thua thien hue",
-    "hue",
-    "tien giang",
-    "tra vinh",
-    "tuyen quang",
-    "vinh long",
-    "vinh phuc",
-    "yen bai",
-}
 
-# Từ khóa hành chính; sẽ remove theo pattern "prefix + tên địa danh"
-LOCATION_PREFIX_PATTERNS = [
-    "thanh pho",
-    "tp",
-    "tinh",
-    "quan",
-    "q",
-    "huyen",
-    "h",
-    "thi xa",
-    "tx",
-    "thi tran",
-    "tt",
-    "phuong",
-    "p",
-    "xa",
-    "x",
-]
-
-# Những token này mà đứng sau prefix thì dừng không ăn tiếp, để tránh nuốt nhầm query
-LOCATION_STOP_TOKENS = {
-    "viec", "lam", "tim", "tuyen", "dung", "moi", "nhat",
-    "online", "remote", "part", "full", "time",
-    "php", "sql", "seo", "qa", "qc", "ui", "ux", "hr", "it",
-    "javascript", "typescript", "nodejs", "dotnet", "csharp", "cpp", "golang"
-}
-
-
-def _normalize_location_text(s: str) -> str:
-    s = (s or "").strip().lower()
-    s = s.replace("tp.", "tp ")
-    s = s.replace("q.", "q ")
-    s = s.replace("p.", "p ")
-    s = s.replace("h.", "h ")
-    s = s.replace("x.", "x ")
-    s = re.sub(r"[,\.;:/\\\-\(\)\[\]]+", " ", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
-
-
-def extract_and_remove_locations(q_norm: str) -> Tuple[str, List[str]]:
-    """
-    Tách địa danh ra khỏi query để tránh nhiễu gợi ý tag.
-    Trả về: (query_đã_bỏ_địa_danh, danh_sach_địa_danh_tìm_thấy)
-    """
-    s = _normalize_location_text(q_norm)
-    found: List[str] = []
-
-    # 1) remove các địa danh lớn cố định
-    s2 = f" {s} "
-    for loc in sorted(STANDALONE_LOCATION_PHRASES, key=len, reverse=True):
-        locn = _normalize_location_text(vn_remove_tone(loc))
-        needle = f" {locn} "
-        if needle in s2:
-            found.append(locn)
-            s2 = s2.replace(needle, " ")
-    s = re.sub(r"\s+", " ", s2).strip()
-
-    # 2) remove pattern kiểu:
-    # "quan cau giay", "q 1", "phuong 5", "xa tan phu", "thanh pho ha noi"...
-    tokens = [t for t in s.split() if t]
-    out_tokens: List[str] = []
-    i = 0
-    n = len(tokens)
-
-    multi_prefixes = {
-        ("thanh", "pho"),
-        ("thi", "xa"),
-        ("thi", "tran"),
-    }
-
-    single_prefixes = {"tp", "tinh", "quan", "q", "huyen", "h", "tx", "tt", "phuong", "p", "xa", "x"}
-
-    while i < n:
-        matched_prefix = None
-        prefix_len = 0
-
-        # prefix 2 token
-        if i + 1 < n and (tokens[i], tokens[i + 1]) in multi_prefixes:
-            matched_prefix = f"{tokens[i]} {tokens[i + 1]}"
-            prefix_len = 2
-        elif tokens[i] in single_prefixes:
-            matched_prefix = tokens[i]
-            prefix_len = 1
-
-        if matched_prefix:
-            j = i + prefix_len
-            loc_tokens = []
-
-            # ăn tối đa 4 token phía sau làm tên địa danh
-            while j < n and len(loc_tokens) < 4:
-                tj = tokens[j]
-
-                # gặp prefix mới thì dừng
-                if tj in single_prefixes:
-                    break
-                if j + 1 < n and (tokens[j], tokens[j + 1]) in multi_prefixes:
-                    break
-
-                # gặp token "nội dung công việc" thì dừng
-                if tj in LOCATION_STOP_TOKENS:
-                    break
-
-                loc_tokens.append(tj)
-                j += 1
-
-                # nếu là dạng số kiểu q 1 / p 5 thì ăn 1 token là đủ
-                if len(loc_tokens) == 1 and re.fullmatch(r"\d+[a-z]?", loc_tokens[0]):
-                    break
-
-            if loc_tokens:
-                found.append(f"{matched_prefix} {' '.join(loc_tokens)}".strip())
-                i = j
-                continue
-            else:
-                # chỉ có prefix trơ trọi thì giữ lại, tránh xóa nhầm
-                out_tokens.append(tokens[i])
-                i += 1
-                continue
-
-        out_tokens.append(tokens[i])
-        i += 1
-
-    cleaned = " ".join(out_tokens)
-    cleaned = re.sub(r"\s+", " ", cleaned).strip()
-
-    # dedupe locations
-    final_found = []
-    seen = set()
-    for x in found:
-        x = re.sub(r"\s+", " ", x).strip()
-        if x and x not in seen:
-            seen.add(x)
-            final_found.append(x)
-
-    return cleaned, final_found
 
 def _remove_years_and_numbers(s: str) -> str:
     s = re.sub(r"\b(19|20)\d{2}\b", " ", s)
@@ -570,15 +360,11 @@ def get_special_variants(q_core: str) -> List[str]:
 
 def split_query_intent(q_raw: str) -> Dict[str, Any]:
     q_norm = normalize_special_text(q_raw)
-
-    # tách location trước để tránh làm bẩn q_core
-    q_wo_locations, q_locations = extract_and_remove_locations(q_norm)
-
-    q_modifiers = _extract_modifiers(q_wo_locations)
-    q_core = cleanup_query_for_search(q_wo_locations)
+    q_modifiers = _extract_modifiers(q_norm)
+    q_core = cleanup_query_for_search(q_norm)
 
     if not q_core:
-        q_core = q_wo_locations or q_norm
+        q_core = q_norm
 
     core_tokens = meaningful_query_tokens(q_core)
     if not core_tokens:
@@ -593,7 +379,6 @@ def split_query_intent(q_raw: str) -> Dict[str, Any]:
         "q_norm": q_norm,
         "q_core": q_core,
         "q_modifiers": q_modifiers,
-        "q_locations": q_locations,
         "q_tokens": core_tokens,
         "q_variants": q_variants,
     }
@@ -1327,7 +1112,6 @@ def suggest(
     q_core = ctx["q_core"]
     q_tokens = ctx["q_tokens"]
     q_variants = ctx["q_variants"]
-    q_locations = ctx.get("q_locations", [])
 
     try:
         # 0) q rỗng -> hot
