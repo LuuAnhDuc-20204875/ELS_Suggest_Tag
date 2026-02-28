@@ -1,0 +1,639 @@
+{
+    "data": {
+        "result": true,
+        "message": "Lấy dữ liệu thành công",
+        "data": [
+            {
+                "cit_id": 1,
+                "cit_name": "Hà Nội",
+                "cit_order": 10,
+                "cit_type": 1,
+                "cit_count": 48593,
+                "cit_count_vl": 178133,
+                "cit_count_vlch": 457,
+                "postcode": "100000"
+            },
+            {
+                "cit_id": 2,
+                "cit_name": "Hải Phòng",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 4231,
+                "cit_count_vl": 8346,
+                "cit_count_vlch": 9,
+                "postcode": "180000"
+            },
+            {
+                "cit_id": 3,
+                "cit_name": "Bắc Giang",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1959,
+                "cit_count_vl": 2974,
+                "cit_count_vlch": 4,
+                "postcode": "220000"
+            },
+            {
+                "cit_id": 6,
+                "cit_name": "Cao Bằng",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 182,
+                "cit_count_vl": 159,
+                "cit_count_vlch": 0,
+                "postcode": "270000"
+            },
+            {
+                "cit_id": 4,
+                "cit_name": "Bắc Kạn",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 218,
+                "cit_count_vl": 41,
+                "cit_count_vlch": 0,
+                "postcode": "960000"
+            },
+            {
+                "cit_id": 8,
+                "cit_name": "Hòa Bình",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 393,
+                "cit_count_vl": 570,
+                "cit_count_vlch": 0,
+                "postcode": "350000"
+            },
+            {
+                "cit_id": 9,
+                "cit_name": "Hải Dương",
+                "cit_order": 3,
+                "cit_type": 1,
+                "cit_count": 2873,
+                "cit_count_vl": 4654,
+                "cit_count_vlch": 9,
+                "postcode": "170000"
+            },
+            {
+                "cit_id": 5,
+                "cit_name": "Bắc Ninh",
+                "cit_order": 7,
+                "cit_type": 1,
+                "cit_count": 6193,
+                "cit_count_vl": 9000,
+                "cit_count_vlch": 7,
+                "postcode": "790000"
+            },
+            {
+                "cit_id": 11,
+                "cit_name": "Hà Nam",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1650,
+                "cit_count_vl": 2390,
+                "cit_count_vlch": 3,
+                "postcode": "400000"
+            },
+            {
+                "cit_id": 12,
+                "cit_name": "Hưng Yên",
+                "cit_order": 5,
+                "cit_type": 1,
+                "cit_count": 2929,
+                "cit_count_vl": 5598,
+                "cit_count_vlch": 6,
+                "postcode": "160000"
+            },
+            {
+                "cit_id": 13,
+                "cit_name": "Lào Cai",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 346,
+                "cit_count_vl": 554,
+                "cit_count_vlch": 0,
+                "postcode": "330000"
+            },
+            {
+                "cit_id": 14,
+                "cit_name": "Lai Châu",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 97,
+                "cit_count_vl": 163,
+                "cit_count_vlch": 0,
+                "postcode": "390000"
+            },
+            {
+                "cit_id": 15,
+                "cit_name": "Lạng Sơn",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 319,
+                "cit_count_vl": 336,
+                "cit_count_vlch": 0,
+                "postcode": "240000"
+            },
+            {
+                "cit_id": 16,
+                "cit_name": "Ninh Bình",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1096,
+                "cit_count_vl": 985,
+                "cit_count_vlch": 2,
+                "postcode": "430000"
+            },
+            {
+                "cit_id": 17,
+                "cit_name": "Nam Định",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1927,
+                "cit_count_vl": 1215,
+                "cit_count_vlch": 2,
+                "postcode": "420000"
+            },
+            {
+                "cit_id": 18,
+                "cit_name": "Phú Thọ",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 945,
+                "cit_count_vl": 921,
+                "cit_count_vlch": 2,
+                "postcode": "290000"
+            },
+            {
+                "cit_id": 19,
+                "cit_name": "Quảng Ninh",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1505,
+                "cit_count_vl": 2321,
+                "cit_count_vlch": 8,
+                "postcode": "200000"
+            },
+            {
+                "cit_id": 20,
+                "cit_name": "Sơn La",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 311,
+                "cit_count_vl": 305,
+                "cit_count_vlch": 0,
+                "postcode": "360000"
+            },
+            {
+                "cit_id": 21,
+                "cit_name": "Thái Bình",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1550,
+                "cit_count_vl": 1282,
+                "cit_count_vlch": 3,
+                "postcode": "410000"
+            },
+            {
+                "cit_id": 22,
+                "cit_name": "Thái Nguyên",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 1603,
+                "cit_count_vl": 1323,
+                "cit_count_vlch": 0,
+                "postcode": "250000"
+            },
+            {
+                "cit_id": 23,
+                "cit_name": "Tuyên Quang",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 319,
+                "cit_count_vl": 236,
+                "cit_count_vlch": 0,
+                "postcode": "300000"
+            },
+            {
+                "cit_id": 24,
+                "cit_name": "Vĩnh Phúc",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 2260,
+                "cit_count_vl": 2318,
+                "cit_count_vlch": 5,
+                "postcode": "280000"
+            },
+            {
+                "cit_id": 7,
+                "cit_name": "Điện Biên",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 149,
+                "cit_count_vl": 201,
+                "cit_count_vlch": 1,
+                "postcode": "380000"
+            },
+            {
+                "cit_id": 26,
+                "cit_name": "Đà Nẵng",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 11551,
+                "cit_count_vl": 21892,
+                "cit_count_vlch": 34,
+                "postcode": "550000"
+            },
+            {
+                "cit_id": 27,
+                "cit_name": "Thừa Thiên Huế",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2012,
+                "cit_count_vl": 892,
+                "cit_count_vlch": 6,
+                "postcode": "530000"
+            },
+            {
+                "cit_id": 28,
+                "cit_name": "Khánh Hòa",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2804,
+                "cit_count_vl": 3873,
+                "cit_count_vlch": 5,
+                "postcode": "650000"
+            },
+            {
+                "cit_id": 29,
+                "cit_name": "Lâm Đồng",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 1505,
+                "cit_count_vl": 1555,
+                "cit_count_vlch": 1,
+                "postcode": "670000"
+            },
+            {
+                "cit_id": 31,
+                "cit_name": "Bình Thuận",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 969,
+                "cit_count_vl": 1394,
+                "cit_count_vlch": 0,
+                "postcode": "800000"
+            },
+            {
+                "cit_id": 10,
+                "cit_name": "Hà Giang",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 207,
+                "cit_count_vl": 209,
+                "cit_count_vlch": 1,
+                "postcode": "310000"
+            },
+            {
+                "cit_id": 32,
+                "cit_name": "Đắk Lắk",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 1361,
+                "cit_count_vl": 824,
+                "cit_count_vlch": 4,
+                "postcode": "630000"
+            },
+            {
+                "cit_id": 33,
+                "cit_name": "Đắk Nông",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 336,
+                "cit_count_vl": 238,
+                "cit_count_vlch": 0,
+                "postcode": "640000"
+            },
+            {
+                "cit_id": 34,
+                "cit_name": "Gia Lai",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 869,
+                "cit_count_vl": 707,
+                "cit_count_vlch": 0,
+                "postcode": "600000"
+            },
+            {
+                "cit_id": 35,
+                "cit_name": "Hà Tĩnh",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 892,
+                "cit_count_vl": 661,
+                "cit_count_vlch": 1,
+                "postcode": "480000"
+            },
+            {
+                "cit_id": 36,
+                "cit_name": "Kon Tum",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 333,
+                "cit_count_vl": 336,
+                "cit_count_vlch": 0,
+                "postcode": "580000"
+            },
+            {
+                "cit_id": 37,
+                "cit_name": "Nghệ An",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2261,
+                "cit_count_vl": 1886,
+                "cit_count_vlch": 3,
+                "postcode": "460000 - 470000"
+            },
+            {
+                "cit_id": 38,
+                "cit_name": "Ninh Thuận",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 605,
+                "cit_count_vl": 486,
+                "cit_count_vlch": 1,
+                "postcode": "660000"
+            },
+            {
+                "cit_id": 39,
+                "cit_name": "Phú Yên",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 1035,
+                "cit_count_vl": 603,
+                "cit_count_vlch": 2,
+                "postcode": "620000"
+            },
+            {
+                "cit_id": 40,
+                "cit_name": "Quảng Bình",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 625,
+                "cit_count_vl": 554,
+                "cit_count_vlch": 0,
+                "postcode": "510000"
+            },
+            {
+                "cit_id": 41,
+                "cit_name": "Quảng Nam",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2352,
+                "cit_count_vl": 2563,
+                "cit_count_vlch": 1,
+                "postcode": "560000"
+            },
+            {
+                "cit_id": 42,
+                "cit_name": "Quảng Ngãi",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2104,
+                "cit_count_vl": 1342,
+                "cit_count_vlch": 2,
+                "postcode": "570000"
+            },
+            {
+                "cit_id": 43,
+                "cit_name": "Quảng Trị",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 762,
+                "cit_count_vl": 298,
+                "cit_count_vlch": 0,
+                "postcode": "520000"
+            },
+            {
+                "cit_id": 44,
+                "cit_name": "Thanh Hóa",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 2825,
+                "cit_count_vl": 2278,
+                "cit_count_vlch": 14,
+                "postcode": "440000 - 450000"
+            },
+            {
+                "cit_id": 45,
+                "cit_name": "Hồ Chí Minh",
+                "cit_order": 9,
+                "cit_type": 3,
+                "cit_count": 71769,
+                "cit_count_vl": 260279,
+                "cit_count_vlch": 600,
+                "postcode": "700000"
+            },
+            {
+                "cit_id": 46,
+                "cit_name": "Bình Dương",
+                "cit_order": 8,
+                "cit_type": 3,
+                "cit_count": 14943,
+                "cit_count_vl": 25389,
+                "cit_count_vlch": 48,
+                "postcode": "590000"
+            },
+            {
+                "cit_id": 47,
+                "cit_name": "Bà Rịa Vũng Tàu",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 2496,
+                "cit_count_vl": 401,
+                "cit_count_vlch": 10,
+                "postcode": "790000"
+            },
+            {
+                "cit_id": 25,
+                "cit_name": "Yên Bái",
+                "cit_order": 0,
+                "cit_type": 1,
+                "cit_count": 282,
+                "cit_count_vl": 282,
+                "cit_count_vlch": 0,
+                "postcode": "320000"
+            },
+            {
+                "cit_id": 30,
+                "cit_name": "Bình Định",
+                "cit_order": 0,
+                "cit_type": 2,
+                "cit_count": 1958,
+                "cit_count_vl": 1960,
+                "cit_count_vlch": 4,
+                "postcode": "820000"
+            },
+            {
+                "cit_id": 50,
+                "cit_name": "Bạc Liêu",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 673,
+                "cit_count_vl": 810,
+                "cit_count_vlch": 2,
+                "postcode": "260000"
+            },
+            {
+                "cit_id": 51,
+                "cit_name": "Bình Phước",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 769,
+                "cit_count_vl": 1178,
+                "cit_count_vlch": 0,
+                "postcode": "830000"
+            },
+            {
+                "cit_id": 52,
+                "cit_name": "Bến Tre",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 948,
+                "cit_count_vl": 1286,
+                "cit_count_vlch": 2,
+                "postcode": "930000"
+            },
+            {
+                "cit_id": 53,
+                "cit_name": "Cà Mau",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1024,
+                "cit_count_vl": 712,
+                "cit_count_vlch": 1,
+                "postcode": "970000"
+            },
+            {
+                "cit_id": 54,
+                "cit_name": "Đồng Tháp",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1480,
+                "cit_count_vl": 1091,
+                "cit_count_vlch": 2,
+                "postcode": "870000"
+            },
+            {
+                "cit_id": 55,
+                "cit_name": "Đồng Nai",
+                "cit_order": 6,
+                "cit_type": 3,
+                "cit_count": 8738,
+                "cit_count_vl": 13099,
+                "cit_count_vlch": 16,
+                "postcode": "810000"
+            },
+            {
+                "cit_id": 56,
+                "cit_name": "Hậu Giang",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 865,
+                "cit_count_vl": 461,
+                "cit_count_vlch": 1,
+                "postcode": "910000"
+            },
+            {
+                "cit_id": 57,
+                "cit_name": "Kiên Giang",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1775,
+                "cit_count_vl": 1823,
+                "cit_count_vlch": 1,
+                "postcode": "920000"
+            },
+            {
+                "cit_id": 58,
+                "cit_name": "Long An",
+                "cit_order": 4,
+                "cit_type": 3,
+                "cit_count": 2691,
+                "cit_count_vl": 6245,
+                "cit_count_vlch": 11,
+                "postcode": "850000"
+            },
+            {
+                "cit_id": 59,
+                "cit_name": "Sóc Trăng",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1008,
+                "cit_count_vl": 635,
+                "cit_count_vlch": 1,
+                "postcode": "950000"
+            },
+            {
+                "cit_id": 60,
+                "cit_name": "Tiền Giang",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1305,
+                "cit_count_vl": 1839,
+                "cit_count_vlch": 3,
+                "postcode": "860000"
+            },
+            {
+                "cit_id": 61,
+                "cit_name": "Tây Ninh",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1126,
+                "cit_count_vl": 2073,
+                "cit_count_vlch": 3,
+                "postcode": "840000"
+            },
+            {
+                "cit_id": 62,
+                "cit_name": "Trà Vinh",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 633,
+                "cit_count_vl": 577,
+                "cit_count_vlch": 1,
+                "postcode": "940000"
+            },
+            {
+                "cit_id": 63,
+                "cit_name": "Vĩnh Long",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 1532,
+                "cit_count_vl": 850,
+                "cit_count_vlch": 0,
+                "postcode": "890000"
+            },
+            {
+                "cit_id": 48,
+                "cit_name": "Cần Thơ",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 8459,
+                "cit_count_vl": 3309,
+                "cit_count_vlch": 15,
+                "postcode": "900000"
+            },
+            {
+                "cit_id": 49,
+                "cit_name": "An Giang",
+                "cit_order": 0,
+                "cit_type": 3,
+                "cit_count": 2169,
+                "cit_count_vl": 1646,
+                "cit_count_vlch": 0,
+                "postcode": "880000"
+            }
+        ]
+    },
+    "error": null
+}

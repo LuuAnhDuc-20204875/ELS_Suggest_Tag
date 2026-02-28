@@ -23,7 +23,17 @@ MIN_ACCEPT_SCORE = float(os.getenv("MIN_ACCEPT_SCORE", "0.8"))
 
 CATEGORY_JSON_PATH = os.getenv(
     "CATEGORY_JSON_PATH",
-    "/mnt/data/api-base365.CategoryJob.json"
+    "/root/AI_365/TAG_SEARCH/api-base365.CategoryJob.json"
+).strip()
+
+CITY_JSON_PATH = os.getenv(
+    "CITY_JSON_PATH",
+    "/root/AI_365/TAG_SEARCH/tinh_thanh.json"
+).strip()
+
+WARD_JSON_PATH = os.getenv(
+    "WARD_JSON_PATH",
+    "/root/AI_365/TAG_SEARCH/6_tinh_phuong_xa.json"
 ).strip()
 
 CATEGORY_MIN_SCORE = float(os.getenv("CATEGORY_MIN_SCORE", "2.8"))
@@ -32,17 +42,15 @@ CATEGORY_MAX_ALIASES_PER_CAT = int(os.getenv("CATEGORY_MAX_ALIASES_PER_CAT", "80
 
 DEBUG_MODE = int(os.getenv("DEBUG_MODE", "0") or 0)
 
-app = FastAPI(title="TAG Suggest API", version="4.1.0")
+app = FastAPI(title="TAG Suggest API", version="4.4.0")
 
 
 # ================== SPECIAL TECH TOKENS ==================
-# Token ngắn nhưng hợp lệ, không được loại bỏ như token rác
 SHORT_VALID_TOKENS = {
     "c", "r", "go", "hr", "qa", "qc", "ui", "ux", "it",
     "seo", "php", "sql", "js", "ts", "ai", "bi"
 }
 
-# Canonical special keyword -> variants dùng để query/search
 SPECIAL_QUERY_VARIANTS: Dict[str, List[str]] = {
     "php": ["php"],
     "csharp": ["csharp", "c sharp", "c"],
@@ -57,7 +65,6 @@ SPECIAL_QUERY_VARIANTS: Dict[str, List[str]] = {
     "vuejs": ["vuejs", "vue js", "vue"],
 }
 
-# Map query raw / normalized sang canonical
 SPECIAL_CANONICAL_MAP = {
     "c#": "csharp",
     "c sharp": "csharp",
@@ -103,7 +110,7 @@ def vn_remove_tone(s: str) -> str:
 
 def normalize_special_text(s: str) -> str:
     """
-    Chuẩn hóa các từ khóa đặc biệt trước khi cleanup/query:
+    Chuẩn hóa keyword đặc biệt trước khi cleanup/query:
     - C# -> csharp
     - C++ -> cpp
     - .NET -> dotnet
@@ -111,11 +118,14 @@ def normalize_special_text(s: str) -> str:
     - Node.js -> nodejs
     - JS -> javascript
     - TS -> typescript
-    - Go -> golang (chỉ khi là token đơn)
+    - Go -> golang
+
+    LƯU Ý:
+    Hàm này chỉ dùng cho job/category/tag.
+    KHÔNG dùng cho địa danh, vì "Gò" -> "go" sẽ bị map thành "golang".
     """
     s = (s or "").strip().lower()
 
-    # chuẩn hóa dấu + cách viết đặc biệt trước
     s = s.replace("node.js", " nodejs ")
     s = s.replace("node js", " nodejs ")
 
@@ -127,16 +137,12 @@ def normalize_special_text(s: str) -> str:
     s = s.replace("c#", " csharp ")
     s = s.replace("c++", " cpp ")
 
-    # các token rời
     s = re.sub(r"\bjs\b", " javascript ", s)
     s = re.sub(r"\bts\b", " typescript ", s)
 
-    # go chỉ đổi khi query là token độc lập
     s = re.sub(r"\bgo\b", " golang ", s)
 
     s = re.sub(r"\s+", " ", s).strip()
-
-    # bỏ dấu sau khi normalize
     s = vn_remove_tone(s)
     return s
 
@@ -144,12 +150,10 @@ def normalize_special_text(s: str) -> str:
 def normalize_doc_for_compare(s: str) -> str:
     """
     Chuẩn hóa document để so khớp tốt hơn với token đặc biệt.
-    Không phá dữ liệu gốc, chỉ dùng nội bộ để compare.
     """
     s = (s or "").strip().lower()
     s = vn_remove_tone(s)
 
-    # một số normalize nhẹ phía doc
     s = s.replace("c#", " csharp ")
     s = s.replace("c++", " cpp ")
     s = s.replace(".net", " dotnet ")
@@ -165,8 +169,26 @@ def normalize_doc_for_compare(s: str) -> str:
     return s
 
 
-def is_ascii_query(s: str) -> bool:
-    return all(ord(ch) < 128 for ch in s)
+def normalize_geo_text(s: str) -> str:
+    """
+    Normalize riêng cho địa danh:
+    - bỏ dấu
+    - chuẩn hóa tp./q./p./x./h.
+    - KHÔNG map token công nghệ (go -> golang, js -> javascript...)
+    """
+    s = (s or "").strip().lower()
+
+    s = s.replace("tp.", "tp ")
+    s = s.replace("tp-", "tp ")
+    s = s.replace("q.", "q ")
+    s = s.replace("p.", "p ")
+    s = s.replace("x.", "x ")
+    s = s.replace("h.", "h ")
+
+    s = vn_remove_tone(s)
+    s = re.sub(r"[,\.;:/\\\-\(\)\[\]]+", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
 
 
 def _to_int(v: Any, default: int = 0) -> int:
@@ -198,11 +220,13 @@ def _to_bool(v: Any) -> bool:
         return bool(v)
 
 
-def _tokenize_norm(s: str) -> List[str]:
-    s = normalize_doc_for_compare(s)
-    if not s:
-        return []
-    return [t for t in s.split() if t]
+def _contains_phrase(q_norm: str, phrase_norm: str) -> bool:
+    """
+    Match theo word boundary bằng khoảng trắng.
+    """
+    if not q_norm or not phrase_norm:
+        return False
+    return f" {phrase_norm} " in f" {q_norm} "
 
 
 def es_search(body: Dict[str, Any]) -> Dict[str, Any]:
@@ -253,8 +277,8 @@ REMOVE_TOKENS_HARD = {
 
 SOFT_STOPWORDS = {
     "viec", "lam", "tim", "tuyen", "dung", "moi", "nhat", "hot",
-    "luong", "cao", "cho", "va", "o", "tai", "nhan", "vien",
-    "chuyen", "ky", "su", "truong", "phong", "nam", "gap",
+    "luong", "cao", "cho", "va", "tai", "nhan", "vien",
+    "chuyen", "ky", "truong", "phong", "nam", "gap",
     "can", "ngay", "tot", "hap", "dan", "cap", "nhat"
 }
 
@@ -264,217 +288,7 @@ KEEP_AS_MODIFIERS = {
     "khong can kinh nghiem", "khong yeu cau kinh nghiem",
     "tieng anh", "tieng trung", "tieng nhat", "ca dem", "xoay ca"
 }
-# ================== LOCATION FILTER ==================
-# Các cụm địa danh lớn hay gặp - remove trực tiếp nếu xuất hiện độc lập
-STANDALONE_LOCATION_PHRASES = {
-    "tinh", "tinh thanh", "thanh pho", "quan", "quan huyen", "phuong", "xa", "thi tran",
-    "ha noi",
-    "hn",
-    "ho chi minh",
-    "tp ho chi minh",
-    "tphcm",
-    "sai gon",
-    "hcm",
-    "da nang",
-    "hai phong",
-    "can tho",
-    "an giang",
-    "ba ria vung tau",
-    "bac giang",
-    "bac kan",
-    "bac lieu",
-    "bac ninh",
-    "ben tre",
-    "binh dinh",
-    "binh duong",
-    "binh phuoc",
-    "binh thuan",
-    "ca mau",
-    "cao bang",
-    "dak lak",
-    "dak nong",
-    "dien bien",
-    "dong nai",
-    "dong thap",
-    "gia lai",
-    "ha giang",
-    "ha nam",
-    "ha tinh",
-    "hai duong",
-    "hau giang",
-    "hoa binh",
-    "hung yen",
-    "khanh hoa",
-    "kien giang",
-    "kon tum",
-    "lai chau",
-    "lam dong",
-    "lang son",
-    "lao cai",
-    "long an",
-    "nam dinh",
-    "nghe an",
-    "ninh binh",
-    "ninh thuan",
-    "phu tho",
-    "phu yen",
-    "quang binh",
-    "quang nam",
-    "quang ngai",
-    "quang ninh",
-    "quang tri",
-    "soc trang",
-    "son la",
-    "tay ninh",
-    "thai binh",
-    "thai nguyen",
-    "thanh hoa",
-    "thua thien hue",
-    "hue",
-    "tien giang",
-    "tra vinh",
-    "tuyen quang",
-    "vinh long",
-    "vinh phuc",
-    "yen bai",
-}
 
-# Từ khóa hành chính; sẽ remove theo pattern "prefix + tên địa danh"
-LOCATION_PREFIX_PATTERNS = [
-    "thanh pho",
-    "tp",
-    "tinh",
-    "quan",
-    "q",
-    "huyen",
-    "h",
-    "thi xa",
-    "tx",
-    "thi tran",
-    "tt",
-    "phuong",
-    "p",
-    "xa",
-    "x",
-]
-
-# Những token này mà đứng sau prefix thì dừng không ăn tiếp, để tránh nuốt nhầm query
-LOCATION_STOP_TOKENS = {
-    "viec", "lam", "tim", "tuyen", "dung", "moi", "nhat",
-    "online", "remote", "part", "full", "time",
-    "php", "sql", "seo", "qa", "qc", "ui", "ux", "hr", "it",
-    "javascript", "typescript", "nodejs", "dotnet", "csharp", "cpp", "golang"
-}
-
-
-def _normalize_location_text(s: str) -> str:
-    s = (s or "").strip().lower()
-    s = s.replace("tp.", "tp ")
-    s = s.replace("q.", "q ")
-    s = s.replace("p.", "p ")
-    s = s.replace("h.", "h ")
-    s = s.replace("x.", "x ")
-    s = re.sub(r"[,\.;:/\\\-\(\)\[\]]+", " ", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
-
-
-def extract_and_remove_locations(q_norm: str) -> Tuple[str, List[str]]:
-    """
-    Tách địa danh ra khỏi query để tránh nhiễu gợi ý tag.
-    Trả về: (query_đã_bỏ_địa_danh, danh_sach_địa_danh_tìm_thấy)
-    """
-    s = _normalize_location_text(q_norm)
-    found: List[str] = []
-
-    # 1) remove các địa danh lớn cố định
-    s2 = f" {s} "
-    for loc in sorted(STANDALONE_LOCATION_PHRASES, key=len, reverse=True):
-        locn = _normalize_location_text(vn_remove_tone(loc))
-        needle = f" {locn} "
-        if needle in s2:
-            found.append(locn)
-            s2 = s2.replace(needle, " ")
-    s = re.sub(r"\s+", " ", s2).strip()
-
-    # 2) remove pattern kiểu:
-    # "quan cau giay", "q 1", "phuong 5", "xa tan phu", "thanh pho ha noi"...
-    tokens = [t for t in s.split() if t]
-    out_tokens: List[str] = []
-    i = 0
-    n = len(tokens)
-
-    multi_prefixes = {
-        ("thanh", "pho"),
-        ("thi", "xa"),
-        ("thi", "tran"),
-    }
-
-    single_prefixes = {"tp", "tinh", "quan", "q", "huyen", "h", "tx", "tt", "phuong", "p", "xa", "x"}
-
-    while i < n:
-        matched_prefix = None
-        prefix_len = 0
-
-        # prefix 2 token
-        if i + 1 < n and (tokens[i], tokens[i + 1]) in multi_prefixes:
-            matched_prefix = f"{tokens[i]} {tokens[i + 1]}"
-            prefix_len = 2
-        elif tokens[i] in single_prefixes:
-            matched_prefix = tokens[i]
-            prefix_len = 1
-
-        if matched_prefix:
-            j = i + prefix_len
-            loc_tokens = []
-
-            # ăn tối đa 4 token phía sau làm tên địa danh
-            while j < n and len(loc_tokens) < 4:
-                tj = tokens[j]
-
-                # gặp prefix mới thì dừng
-                if tj in single_prefixes:
-                    break
-                if j + 1 < n and (tokens[j], tokens[j + 1]) in multi_prefixes:
-                    break
-
-                # gặp token "nội dung công việc" thì dừng
-                if tj in LOCATION_STOP_TOKENS:
-                    break
-
-                loc_tokens.append(tj)
-                j += 1
-
-                # nếu là dạng số kiểu q 1 / p 5 thì ăn 1 token là đủ
-                if len(loc_tokens) == 1 and re.fullmatch(r"\d+[a-z]?", loc_tokens[0]):
-                    break
-
-            if loc_tokens:
-                found.append(f"{matched_prefix} {' '.join(loc_tokens)}".strip())
-                i = j
-                continue
-            else:
-                # chỉ có prefix trơ trọi thì giữ lại, tránh xóa nhầm
-                out_tokens.append(tokens[i])
-                i += 1
-                continue
-
-        out_tokens.append(tokens[i])
-        i += 1
-
-    cleaned = " ".join(out_tokens)
-    cleaned = re.sub(r"\s+", " ", cleaned).strip()
-
-    # dedupe locations
-    final_found = []
-    seen = set()
-    for x in found:
-        x = re.sub(r"\s+", " ", x).strip()
-        if x and x not in seen:
-            seen.add(x)
-            final_found.append(x)
-
-    return cleaned, final_found
 
 def _remove_years_and_numbers(s: str) -> str:
     s = re.sub(r"\b(19|20)\d{2}\b", " ", s)
@@ -539,9 +353,6 @@ def meaningful_query_tokens(q_norm: str) -> List[str]:
 
 
 def get_special_variants(q_core: str) -> List[str]:
-    """
-    Sinh các biến thể query cho từ khóa đặc biệt.
-    """
     q = (q_core or "").strip().lower()
     if not q:
         return []
@@ -561,45 +372,585 @@ def get_special_variants(q_core: str) -> List[str]:
             seen.add(v2)
             cleaned.append(v2)
 
-    # luôn ưu tiên q_core chính nó
     if q not in seen and q:
         cleaned.insert(0, q)
 
     return cleaned
 
 
-def split_query_intent(q_raw: str) -> Dict[str, Any]:
-    q_norm = normalize_special_text(q_raw)
+# ================== LOCATION FILTER (for tag suggest only) ==================
+STANDALONE_LOCATION_PHRASES = {
+    "tinh", "tinh thanh", "thanh pho", "quan", "quan huyen", "phuong", "xa", "thi tran",
+    "ha noi", "hn", "ho chi minh", "tp ho chi minh", "tphcm", "sai gon", "hcm",
+    "da nang", "hai phong", "can tho",
+    "an giang", "ba ria vung tau", "bac giang", "bac kan", "bac lieu", "bac ninh",
+    "ben tre", "binh dinh", "binh duong", "binh phuoc", "binh thuan", "ca mau",
+    "cao bang", "dak lak", "dak nong", "dien bien", "dong nai", "dong thap",
+    "gia lai", "ha giang", "ha nam", "ha tinh", "hai duong", "hau giang",
+    "hoa binh", "hung yen", "khanh hoa", "kien giang", "kon tum", "lai chau",
+    "lam dong", "lang son", "lao cai", "long an", "nam dinh", "nghe an",
+    "ninh binh", "ninh thuan", "phu tho", "phu yen", "quang binh", "quang nam",
+    "quang ngai", "quang ninh", "quang tri", "soc trang", "son la", "tay ninh",
+    "thai binh", "thai nguyen", "thanh hoa", "thua thien hue", "hue", "tien giang",
+    "tra vinh", "tuyen quang", "vinh long", "vinh phuc", "yen bai",
+}
 
-    # tách location trước để tránh làm bẩn q_core
-    q_wo_locations, q_locations = extract_and_remove_locations(q_norm)
+LOCATION_STOP_TOKENS = {
+    "viec", "lam", "tim", "tuyen", "dung", "moi", "nhat",
+    "online", "remote", "part", "full", "time",
+    "php", "sql", "seo", "qa", "qc", "ui", "ux", "hr", "it",
+    "javascript", "typescript", "nodejs", "dotnet", "csharp", "cpp", "golang"
+}
 
-    q_modifiers = _extract_modifiers(q_wo_locations)
-    q_core = cleanup_query_for_search(q_wo_locations)
 
-    if not q_core:
-        q_core = q_wo_locations or q_norm
+def _normalize_location_text(s: str) -> str:
+    return normalize_geo_text(s)
 
-    core_tokens = meaningful_query_tokens(q_core)
-    if not core_tokens:
-        core_tokens = [t for t in q_core.split() if t]
 
-    q_variants = get_special_variants(q_core)
-    if not q_variants:
-        q_variants = [q_core]
+def extract_and_remove_locations(q_norm: str) -> Tuple[str, List[str]]:
+    s = _normalize_location_text(q_norm)
+    found: List[str] = []
+
+    s2 = f" {s} "
+    for loc in sorted(STANDALONE_LOCATION_PHRASES, key=len, reverse=True):
+        locn = _normalize_location_text(vn_remove_tone(loc))
+        needle = f" {locn} "
+        if needle in s2:
+            found.append(locn)
+            s2 = s2.replace(needle, " ")
+    s = re.sub(r"\s+", " ", s2).strip()
+
+    tokens = [t for t in s.split() if t]
+    out_tokens: List[str] = []
+    i = 0
+    n = len(tokens)
+
+    multi_prefixes = {("thanh", "pho"), ("thi", "xa"), ("thi", "tran")}
+    single_prefixes = {"tp", "tinh", "quan", "q", "huyen", "h", "tx", "tt", "phuong", "p", "xa", "x"}
+
+    while i < n:
+        matched_prefix = None
+        prefix_len = 0
+
+        if i + 1 < n and (tokens[i], tokens[i + 1]) in multi_prefixes:
+            matched_prefix = f"{tokens[i]} {tokens[i + 1]}"
+            prefix_len = 2
+        elif tokens[i] in single_prefixes:
+            matched_prefix = tokens[i]
+            prefix_len = 1
+
+        if matched_prefix:
+            j = i + prefix_len
+            loc_tokens = []
+            while j < n and len(loc_tokens) < 4:
+                tj = tokens[j]
+                if tj in single_prefixes:
+                    break
+                if j + 1 < n and (tokens[j], tokens[j + 1]) in multi_prefixes:
+                    break
+                if tj in LOCATION_STOP_TOKENS:
+                    break
+
+                loc_tokens.append(tj)
+                j += 1
+
+                if len(loc_tokens) == 1 and re.fullmatch(r"\d+[a-z]?", loc_tokens[0]):
+                    break
+
+            if loc_tokens:
+                found.append(f"{matched_prefix} {' '.join(loc_tokens)}".strip())
+                i = j
+                continue
+            else:
+                out_tokens.append(tokens[i])
+                i += 1
+                continue
+
+        out_tokens.append(tokens[i])
+        i += 1
+
+    cleaned = " ".join(out_tokens)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+    final_found = []
+    seen = set()
+    for x in found:
+        x = re.sub(r"\s+", " ", x).strip()
+        if x and x not in seen:
+            seen.add(x)
+            final_found.append(x)
+
+    return cleaned, final_found
+
+
+# ================== PRE-RESOLVE CITY (cit_id, cit_name) ==================
+CITY_DB: List[Dict[str, Any]] = []
+CITY_PHRASES: List[Tuple[str, int]] = []
+CITY_ID_TO_NAME: Dict[int, str] = {}
+
+CITY_ALIAS: Dict[str, int] = {
+    "hn": 1,
+    "ha noi": 1,
+    "hanoi": 1,
+
+    "hcm": 45,
+    "tphcm": 45,
+    "tp hcm": 45,
+    "tp ho chi minh": 45,
+    "ho chi minh": 45,
+    "sai gon": 45,
+    "saigon": 45,
+
+    "da nang": 26,
+    "danang": 26,
+
+    "hai phong": 2,
+    "haiphong": 2,
+
+    "can tho": 48,
+    "cantho": 48,
+
+    "hue": 27,
+    "thua thien hue": 27,
+    "tt hue": 27,
+}
+
+
+def load_city_db(path: str) -> List[Dict[str, Any]]:
+    p = Path(path)
+    if not p.exists():
+        return []
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    items = []
+    try:
+        items = raw.get("data", {}).get("data", [])
+        if not isinstance(items, list):
+            items = []
+    except Exception:
+        items = []
+
+    out: List[Dict[str, Any]] = []
+    for row in items:
+        if not isinstance(row, dict):
+            continue
+
+        cit_id = _to_int(row.get("cit_id"), 0)
+        cit_name = _to_str(row.get("cit_name"))
+
+        if cit_id <= 0 or not cit_name:
+            continue
+
+        out.append({
+            "cit_id": cit_id,
+            "cit_name": cit_name,
+            "cit_name_norm": normalize_geo_text(cit_name),
+        })
+    return out
+
+
+def build_city_phrases() -> List[Tuple[str, int]]:
+    phrases: List[Tuple[str, int]] = []
+
+    for row in CITY_DB:
+        phrases.append((normalize_geo_text(row["cit_name"]), int(row["cit_id"])))
+
+    for k, v in CITY_ALIAS.items():
+        phrases.append((normalize_geo_text(k), int(v)))
+
+    phrases.sort(key=lambda x: len(x[0]), reverse=True)
+
+    seen = set()
+    out: List[Tuple[str, int]] = []
+    for name_norm, cit_id in phrases:
+        if not name_norm:
+            continue
+        key = (name_norm, cit_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((name_norm, cit_id))
+
+    return out
+
+
+def detect_city_id(q_geo_norm: str) -> int:
+    if not q_geo_norm:
+        return 0
+
+    q = normalize_geo_text(q_geo_norm)
+    for name_norm, cit_id in CITY_PHRASES:
+        if _contains_phrase(q, name_norm):
+            return cit_id
+    return 0
+
+
+CITY_DB = load_city_db(CITY_JSON_PATH)
+CITY_PHRASES = build_city_phrases()
+CITY_ID_TO_NAME = {
+    int(x["cit_id"]): str(x["cit_name"])
+    for x in CITY_DB
+    if int(x["cit_id"]) > 0 and x.get("cit_name")
+}
+
+
+# ================== PRE-RESOLVE WARD/COMMUNE (phuong_xa) ==================
+WARD_DB: List[Dict[str, Any]] = []
+WARD_PHRASES: List[Tuple[str, Dict[str, Any]]] = []
+
+
+def strip_ward_prefix(s: str) -> str:
+    s = normalize_geo_text(s)
+    s = re.sub(r"^(phuong|xa|thi tran)\s+", "", s).strip()
+    return s
+
+
+def _build_ward_aliases(ward_name: str) -> List[str]:
+    """
+    Tạo alias để match:
+    - full: "phuong giang vo"
+    - core: "giang vo"
+    - viết tắt prefix: "p giang vo" / "x bat trang"
+    """
+    full_norm = normalize_geo_text(ward_name)
+    core_norm = strip_ward_prefix(ward_name)
+
+    aliases: List[str] = []
+    for x in (full_norm, core_norm):
+        if x:
+            aliases.append(x)
+
+    if full_norm.startswith("phuong ") and core_norm:
+        aliases.append(f"p {core_norm}")
+    elif full_norm.startswith("xa ") and core_norm:
+        aliases.append(f"x {core_norm}")
+    elif full_norm.startswith("thi tran ") and core_norm:
+        aliases.append(f"tt {core_norm}")
+
+    out: List[str] = []
+    seen = set()
+    for a in aliases:
+        a = re.sub(r"\s+", " ", a).strip()
+        if not a:
+            continue
+        if len(a.split()) == 1 and len(a) < 3:
+            continue
+        if a in seen:
+            continue
+        seen.add(a)
+        out.append(a)
+
+    out.sort(key=lambda x: (len(x.split()), len(x)), reverse=True)
+    return out
+
+
+def load_ward_db(path: str) -> Tuple[List[Dict[str, Any]], List[Tuple[str, Dict[str, Any]]]]:
+    p = Path(path)
+    if not p.exists():
+        return [], []
+
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return [], []
+
+    cities = raw.get("data", {}).get("cities", [])
+    if not isinstance(cities, list):
+        return [], []
+
+    rows: List[Dict[str, Any]] = []
+    phrases: List[Tuple[str, Dict[str, Any]]] = []
+
+    for city in cities:
+        if not isinstance(city, dict):
+            continue
+
+        cit_id = _to_int(city.get("_id"), 0)
+        cit_name = _to_str(city.get("name"))
+
+        if cit_id <= 0 or not cit_name:
+            continue
+
+        wards = city.get("wards", [])
+        if not isinstance(wards, list):
+            continue
+
+        for ward in wards:
+            if not isinstance(ward, dict):
+                continue
+
+            ward_id = _to_int(ward.get("_id"), 0)
+            ward_name = _to_str(ward.get("name"))
+            old_district_id = _to_int(ward.get("old_district_id"), 0)
+
+            if ward_id <= 0 or not ward_name:
+                continue
+
+            row = {
+                "cit_id": cit_id,
+                "cit_name": cit_name,
+                "phuong_xa_id": ward_id,
+                "phuong_xa_name": ward_name,
+                "phuong_xa_full_norm": normalize_geo_text(ward_name),
+                "phuong_xa_core_norm": strip_ward_prefix(ward_name),
+                "old_district_id": old_district_id,
+            }
+            rows.append(row)
+
+            for alias in _build_ward_aliases(ward_name):
+                phrases.append((alias, row))
+
+    phrases.sort(key=lambda x: (len(x[0].split()), len(x[0])), reverse=True)
+    return rows, phrases
+
+
+def detect_phuong_xa(q_geo_norm: str, cit_id_hint: int = 0) -> Dict[str, Any]:
+    """
+    Rule:
+    - Nếu query có city => chỉ match ward trong city đó
+    - Nếu query không có city:
+        + ward unique theo alias => nhận
+        + ward trùng nhiều city => bỏ để tránh match sai
+    - Nếu duplicate cùng city/cùng tên => lấy id nhỏ hơn cho ổn định
+    """
+    if not q_geo_norm:
+        return {}
+
+    q = normalize_geo_text(q_geo_norm)
+    matched: List[Dict[str, Any]] = []
+    seen = set()
+
+    for alias, row in WARD_PHRASES:
+        if not _contains_phrase(q, alias):
+            continue
+
+        key = (int(row["cit_id"]), int(row["phuong_xa_id"]))
+        if key in seen:
+            continue
+        seen.add(key)
+
+        item = dict(row)
+        item["_matched_alias"] = alias
+        item["_is_full_alias"] = 1 if alias == row["phuong_xa_full_norm"] else 0
+        matched.append(item)
+
+    if not matched:
+        return {}
+
+    if cit_id_hint > 0:
+        matched = [m for m in matched if int(m["cit_id"]) == int(cit_id_hint)]
+        if not matched:
+            return {}
+
+    matched.sort(
+        key=lambda m: (
+            -len(str(m["_matched_alias"]).split()),
+            -len(str(m["_matched_alias"])),
+            -int(m["_is_full_alias"]),
+            int(m["phuong_xa_id"]),
+        )
+    )
+
+    best = matched[0]
+
+    # Nếu query không có city và alias tốt nhất đang trùng nhiều city => không tự chọn
+    if cit_id_hint == 0:
+        best_alias = str(best["_matched_alias"])
+        city_set = {int(m["cit_id"]) for m in matched if str(m["_matched_alias"]) == best_alias}
+        if len(city_set) > 1:
+            return {}
 
     return {
-        "q_raw": q_raw,
-        "q_norm": q_norm,
-        "q_core": q_core,
-        "q_modifiers": q_modifiers,
-        "q_locations": q_locations,
-        "q_tokens": core_tokens,
-        "q_variants": q_variants,
+        "cit_id": int(best["cit_id"]),
+        "cit_name": str(best["cit_name"]),
+        "phuong_xa_id": int(best["phuong_xa_id"]),
+        "phuong_xa_name": str(best["phuong_xa_name"]),
+        "old_district_id": int(best.get("old_district_id", 0)),
     }
 
 
-# ================== CATEGORY INTENT ==================
+WARD_DB, WARD_PHRASES = load_ward_db(WARD_JSON_PATH)
+
+
+# ================== PRE-RESOLVE CATEGORY (cat_id, cat_name) ==================
+CAT_UT_PHRASES: List[Tuple[str, int]] = []     # from cat_ut (priority 1)
+CAT_NAME_PHRASES: List[Tuple[str, int]] = []   # from cat_name_new/cat_name (priority 2)
+CAT_ID_TO_NAME: Dict[int, str] = {}
+
+
+def _split_cat_ut(v: Any) -> List[str]:
+    """
+    cat_ut keywords ngăn cách bằng dấu phẩy ","
+    """
+    if v is None:
+        return []
+    s = str(v).strip()
+    if not s:
+        return []
+    parts = s.split(",")
+    out = []
+    for p in parts:
+        p = p.strip()
+        if p:
+            out.append(p)
+    return out
+
+
+def build_cat_phrase_tables(category_json_path: str) -> Tuple[List[Tuple[str, int]], List[Tuple[str, int]], Dict[int, str]]:
+    p = Path(category_json_path)
+    if not p.exists():
+        return [], [], {}
+
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+        if not isinstance(raw, list):
+            return [], [], {}
+    except Exception:
+        return [], [], {}
+
+    ut_phrases: List[Tuple[str, int]] = []
+    name_phrases: List[Tuple[str, int]] = []
+    id2name: Dict[int, str] = {}
+
+    def is_good_phrase(ph: str, source: str) -> bool:
+        """
+        source: 'ut' hoặc 'name'
+        ph đã normalize + cleanup
+        """
+        if not ph:
+            return False
+
+        toks_all = [t for t in ph.split() if t]
+        if not toks_all:
+            return False
+
+        toks = [t for t in toks_all if t not in SOFT_STOPWORDS]
+        if not toks:
+            return False
+
+        if len(toks) == 1:
+            t = toks[0]
+
+            if t in SHORT_VALID_TOKENS:
+                return True
+
+            if len(t) < 5:
+                return False
+
+            return True
+
+        if source == "name":
+            if len(toks) < 2:
+                return False
+
+            if len(toks) == 2 and all(len(x) < 4 for x in toks):
+                return False
+
+        if len(ph) < 5:
+            return False
+
+        return True
+
+    for row in raw:
+        if not isinstance(row, dict):
+            continue
+
+        cat_id = _to_int(row.get("cat_id"), 0)
+        if cat_id <= 0:
+            continue
+
+        cat_name = _to_str(row.get("cat_name"))
+        cat_name_new = _to_str(row.get("cat_name_new"))
+
+        if cat_name:
+            id2name[cat_id] = cat_name
+
+        # 1) cat_ut (PRIORITY)
+        for ut in _split_cat_ut(row.get("cat_ut")):
+            ut_norm = normalize_special_text(ut)
+            ut_norm = cleanup_query_for_search(ut_norm)
+            ut_norm = re.sub(r"\s+", " ", ut_norm).strip()
+
+            if not is_good_phrase(ut_norm, source="ut"):
+                continue
+
+            ut_phrases.append((ut_norm, cat_id))
+
+        # 2) fallback cat_name_new / cat_name
+        for base in [cat_name_new, cat_name]:
+            base = (base or "").strip()
+            if not base:
+                continue
+
+            bn = normalize_special_text(base)
+            bn = cleanup_query_for_search(bn)
+            bn = re.sub(r"\s+", " ", bn).strip()
+
+            if not is_good_phrase(bn, source="name"):
+                continue
+
+            name_phrases.append((bn, cat_id))
+
+    ut_phrases.sort(key=lambda x: len(x[0]), reverse=True)
+    name_phrases.sort(key=lambda x: len(x[0]), reverse=True)
+
+    def dedupe(phs: List[Tuple[str, int]]) -> List[Tuple[str, int]]:
+        seen = set()
+        out = []
+        for ph, cid in phs:
+            if not ph or ph in seen:
+                continue
+            seen.add(ph)
+            out.append((ph, cid))
+        return out
+
+    return dedupe(ut_phrases), dedupe(name_phrases), id2name
+
+
+def detect_cat_id(q_norm: str) -> int:
+    if not q_norm:
+        return 0
+
+    q = re.sub(r"\s+", " ", q_norm).strip()
+    q_tokens = [t for t in q.split() if t and t not in SOFT_STOPWORDS]
+    q_tok_set = set(q_tokens)
+
+    def ok_match(phrase_norm: str) -> bool:
+        if not _contains_phrase(q, phrase_norm):
+            return False
+
+        ptoks = [t for t in phrase_norm.split() if t and t not in SOFT_STOPWORDS]
+        if not ptoks:
+            return False
+
+        if len(q_tokens) >= 2:
+            overlap = len(set(ptoks) & q_tok_set)
+            if overlap >= 2:
+                return True
+            if len(ptoks) >= 2:
+                return True
+            return False
+
+        return True
+
+    for phrase_norm, cat_id in CAT_UT_PHRASES:
+        if ok_match(phrase_norm):
+            return int(cat_id)
+
+    for phrase_norm, cat_id in CAT_NAME_PHRASES:
+        if ok_match(phrase_norm):
+            return int(cat_id)
+
+    return 0
+
+
+CAT_UT_PHRASES, CAT_NAME_PHRASES, CAT_ID_TO_NAME = build_cat_phrase_tables(CATEGORY_JSON_PATH)
+
+
+# ================== CATEGORY INTENT (alias resolver for TAG fallback) ==================
 CATEGORY_FIELDS = [
     "cat_name",
     "cat_title",
@@ -654,7 +1005,7 @@ def load_category_db(path: str) -> List[Dict[str, Any]]:
         if not isinstance(row, dict):
             continue
 
-        cat_id = row.get("cat_id")
+        cat_id = _to_int(row.get("cat_id"), 0)
         cat_name = _to_str(row.get("cat_name"))
         cat_name_new = _to_str(row.get("cat_name_new"))
         canonical = cat_name_new or cat_name
@@ -695,7 +1046,6 @@ def load_category_db(path: str) -> List[Dict[str, Any]]:
                 token_count = len(alias_tokens)
                 longest_token = max((len(t) for t in alias_tokens), default=0)
 
-                # cho phép token ngắn nếu là token đặc biệt
                 if token_count == 1 and longest_token <= 2 and alias_tokens[0] not in SHORT_VALID_TOKENS:
                     continue
 
@@ -724,7 +1074,6 @@ def load_category_db(path: str) -> List[Dict[str, Any]]:
 
         alias_scores[canonical_norm] = max(alias_scores.get(canonical_norm, 0.0), 4.0)
 
-        # thêm variants cho canonical nếu là special
         for v in get_special_variants(canonical_norm):
             alias_scores[v] = max(alias_scores.get(v, 0.0), 3.2)
 
@@ -755,7 +1104,6 @@ def find_best_category_match(q_core: str) -> Optional[Dict[str, Any]]:
     if not q_tokens:
         return None
 
-    # nới rule cho short valid token
     if len(q_tokens) == 1 and len(q_tokens[0]) <= 2 and q_tokens[0] not in SHORT_VALID_TOKENS:
         return None
 
@@ -797,7 +1145,6 @@ def find_best_category_match(q_core: str) -> Optional[Dict[str, Any]]:
 
             if score == 0.0 and len(q_token_set) == 1:
                 q_tok = next(iter(q_token_set))
-                # cho short valid token exact
                 if q_tok in SHORT_VALID_TOKENS and q_tok in alias_set:
                     score = max(score, weight + 1.6)
                     has_direct_keyword = True
@@ -819,9 +1166,9 @@ def find_best_category_match(q_core: str) -> Optional[Dict[str, Any]]:
 
         if best_score >= CATEGORY_MIN_SCORE:
             cand = {
-                "cat_id": cat["cat_id"],
-                "canonical": cat["canonical"],
-                "canonical_norm": cat["canonical_norm"],
+                "cat_id": int(cat.get("cat_id", 0)),
+                "canonical": cat.get("canonical", ""),
+                "canonical_norm": cat.get("canonical_norm", ""),
                 "matched_alias": best_alias,
                 "score": best_score,
             }
@@ -840,7 +1187,7 @@ CATEGORY_DB = load_category_db(CATEGORY_JSON_PATH)
 # ================== MODELS ==================
 class SuggestItem(BaseModel):
     tag_id: Optional[str] = None
-    key_name: str
+    key_name: str = ""
     key_name_norm_full: str = ""
     key_city_id: int = 0
     key_qh_id: int = 0
@@ -850,6 +1197,12 @@ class SuggestItem(BaseModel):
 class SuggestResp(BaseModel):
     q: str
     size: int
+    cat_id: int = 0
+    cat_name: str = ""
+    cit_id: int = 0
+    cit_name: str = ""
+    phuong_xa_id: int = 0
+    phuong_xa_name: str = ""
     items: List[SuggestItem]
 
 
@@ -906,20 +1259,12 @@ def group_sort_key(it: SuggestItem) -> Tuple[int, int, int, Tuple[int, str]]:
 def dedupe_items(items: List[SuggestItem]) -> List[SuggestItem]:
     seen = set()
     out: List[SuggestItem] = []
-
     for it in items:
-        key = (
-            it.tag_id or "",
-            it.key_name,
-            it.key_city_id,
-            it.key_qh_id,
-            it.key_cb_id
-        )
+        key = (it.tag_id or "", it.key_name, it.key_city_id, it.key_qh_id, it.key_cb_id)
         if key in seen:
             continue
         seen.add(key)
         out.append(it)
-
     return out
 
 
@@ -927,32 +1272,22 @@ def dedupe_items(items: List[SuggestItem]) -> List[SuggestItem]:
 def edit_distance_limited(a: str, b: str, max_dist: int = 2) -> int:
     if a == b:
         return 0
-
     la, lb = len(a), len(b)
     if abs(la - lb) > max_dist:
         return max_dist + 1
-
     prev = list(range(lb + 1))
     for i, ca in enumerate(a, 1):
         curr = [i]
         row_min = curr[0]
-
         for j, cb in enumerate(b, 1):
             cost = 0 if ca == cb else 1
-            v = min(
-                prev[j] + 1,
-                curr[j - 1] + 1,
-                prev[j - 1] + cost
-            )
+            v = min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost)
             curr.append(v)
             if v < row_min:
                 row_min = v
-
         if row_min > max_dist:
             return max_dist + 1
-
         prev = curr
-
     return prev[-1]
 
 
@@ -964,13 +1299,11 @@ def is_relevant(tokens: List[str], doc_norm_full: str) -> bool:
     doc_tokens = [t for t in doc_norm.split() if t]
     if not doc_tokens:
         return False
-
     doc_set = set(doc_tokens)
 
     q_tokens = [t for t in tokens if t and (t not in SOFT_STOPWORDS or t in SHORT_VALID_TOKENS)]
     if not q_tokens:
         q_tokens = [t for t in tokens if t]
-
     if not q_tokens:
         return False
 
@@ -981,11 +1314,8 @@ def is_relevant(tokens: List[str], doc_norm_full: str) -> bool:
         if t in doc_set:
             exact_matches += 1
             continue
-
-        # short valid token không cần prefix lỏng
         if t in SHORT_VALID_TOKENS:
             continue
-
         if len(t) >= 5:
             for d in doc_tokens:
                 if d.startswith(t[:4]) and (t in d or d in t):
@@ -993,37 +1323,25 @@ def is_relevant(tokens: List[str], doc_norm_full: str) -> bool:
                     break
 
     if len(q_tokens) >= 2:
-        # nếu có short token hợp lệ thì exact 1 token cũng đủ
         if any(t in SHORT_VALID_TOKENS for t in q_tokens) and exact_matches >= 1:
             return True
-
         long_exact = sum(1 for t in q_tokens if len(t) >= 4 and t in doc_set)
         if long_exact >= 1:
             return True
-
         coverage = exact_matches / max(len(q_tokens), 1)
         return coverage >= 0.6
 
     t = q_tokens[0]
-
-    # cho short valid token exact match
     if t in SHORT_VALID_TOKENS:
         return t in doc_set
-
     if len(t) >= 4 and t in doc_set:
         return True
     if len(t) >= 6 and prefix_matches >= 1:
         return True
-
     return False
 
 
-def compute_rerank_score(
-    item: SuggestItem,
-    es_score: float,
-    q_core: str,
-    q_tokens: List[str]
-) -> float:
+def compute_rerank_score(item: SuggestItem, es_score: float, q_core: str, q_tokens: List[str]) -> float:
     doc = normalize_doc_for_compare(item.key_name_norm_full or "")
     if not doc:
         return -1e9
@@ -1031,38 +1349,31 @@ def compute_rerank_score(
     doc_tokens = [t for t in doc.split() if t]
     if not doc_tokens:
         return -1e9
-
     doc_set = set(doc_tokens)
 
     q_core_norm = normalize_doc_for_compare(q_core)
     q_tokens2 = [t for t in q_tokens if t and (t not in SOFT_STOPWORDS or t in SHORT_VALID_TOKENS)]
     if not q_tokens2:
         q_tokens2 = [t for t in q_tokens if t]
-
     if not q_tokens2:
         return -1e9
 
     score = 0.0
 
-    # 1) exact phrase / contains phrase
     if q_core_norm and doc == q_core_norm:
         score += 220.0
     elif q_core_norm and f" {q_core_norm} " in f" {doc} ":
         score += 130.0
 
-    # 2) exact token + typo gần
     exact_count = 0
     typo_near_count = 0.0
 
     for qt in q_tokens2:
         if qt in doc_set:
-            # short valid token exact match phải được thưởng riêng
             exact_count += 1
             if qt in SHORT_VALID_TOKENS:
                 score += 18.0
             continue
-
-        # token quá ngắn thì không fuzzy
         if qt in SHORT_VALID_TOKENS:
             continue
 
@@ -1082,16 +1393,13 @@ def compute_rerank_score(
     score += exact_count * 35.0
     score += typo_near_count * 18.0
 
-    # 3) coverage
     coverage = exact_count / max(len(q_tokens2), 1)
     score += coverage * 30.0
 
-    # 4) query ngắn => ưu tiên cụm ngắn gọn
     if len(q_tokens2) <= 2:
         extra_tokens = max(len(doc_tokens) - max(len(q_tokens2), 1), 0)
         score -= extra_tokens * 8.0
 
-    # 5) token đầu khớp gần
     if q_tokens2 and doc_tokens:
         q0 = q_tokens2[0]
         if q0 in SHORT_VALID_TOKENS:
@@ -1104,10 +1412,8 @@ def compute_rerank_score(
             elif d0 == 1:
                 score += 5.0
 
-    # 6) vẫn giữ một ít ảnh hưởng từ ES
     score += min(es_score, 20.0)
 
-    # 7) ưu tiên global trước local khi nội dung gần nhau
     if item.key_city_id == 0:
         score += 2.0
     if item.key_qh_id == 0:
@@ -1120,19 +1426,15 @@ def compute_rerank_score(
 
 def rerank_items(parsed: List[Dict[str, Any]], q_core: str, q_tokens: List[str], size: int) -> List[SuggestItem]:
     candidates: List[Tuple[float, SuggestItem]] = []
-
     for x in parsed:
         item = x["item"]
         es_score = float(x.get("score") or 0.0)
-
         if not is_relevant(q_tokens, x.get("doc_norm_full", "")):
             continue
-
         rr = compute_rerank_score(item, es_score, q_core, q_tokens)
         candidates.append((rr, item))
 
     candidates.sort(key=lambda z: (-z[0], group_sort_key(z[1])))
-
     items = [it for _, it in candidates]
     items = dedupe_items(items)
     return items[:size]
@@ -1148,16 +1450,10 @@ def _source_fields() -> List[str]:
     ]
 
 
-def _multi_should_match_queries(
-    variants: List[str],
-    match_type: str = "exact_core",
-) -> List[Dict[str, Any]]:
-    """
-    Sinh danh sách should query từ nhiều biến thể.
-    """
+def _multi_should_match_queries(variants: List[str], match_type: str = "exact_core") -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
-
     seen = set()
+
     for v in variants:
         v = (v or "").strip()
         if not v or v in seen:
@@ -1165,8 +1461,6 @@ def _multi_should_match_queries(
         seen.add(v)
 
         token_count = len(v.split())
-
-        # giảm boost cho variant quá ngắn "c", "net", ...
         short_penalty = 1.0
         if token_count == 1 and len(v) <= 3:
             short_penalty = 0.45
@@ -1181,12 +1475,6 @@ def _multi_should_match_queries(
             out.append({"match_phrase_prefix": {"key_name_norm_full": {"query": v, "boost": 30 * short_penalty}}})
             out.append({"match_bool_prefix": {"key_name_norm_full": {"query": v, "boost": 18 * short_penalty}}})
             out.append({"match_bool_prefix": {"key_name_norm": {"query": v, "boost": 5 * short_penalty}}})
-
-        elif match_type == "category":
-            out.append({"match_phrase": {"key_name_norm_full": {"query": v, "boost": 100 * short_penalty}}})
-            out.append({"match_phrase_prefix": {"key_name_norm_full": {"query": v, "boost": 40 * short_penalty}}})
-            out.append({"match_bool_prefix": {"key_name_norm_full": {"query": v, "boost": 20 * short_penalty}}})
-            out.append({"match_bool_prefix": {"key_name_norm": {"query": v, "boost": 8 * short_penalty}}})
 
         elif match_type == "fuzzy_phrase":
             out.append({
@@ -1205,16 +1493,8 @@ def _multi_should_match_queries(
         elif match_type == "fuzzy_tokens":
             toks = [t for t in v.split() if t][:4]
             for i, t in enumerate(toks):
-                # short valid token thì không fuzzy lung tung, chỉ match thường
                 if t in SHORT_VALID_TOKENS:
-                    out.append({
-                        "match": {
-                            "key_name_norm_full": {
-                                "query": t,
-                                "boost": 1.5 * short_penalty
-                            }
-                        }
-                    })
+                    out.append({"match": {"key_name_norm_full": {"query": t, "boost": 1.5 * short_penalty}}})
                 else:
                     boost = 3.0 if i == len(toks) - 1 else 2.0
                     out.append({
@@ -1228,7 +1508,6 @@ def _multi_should_match_queries(
                             }
                         }
                     })
-
     return out
 
 
@@ -1236,12 +1515,7 @@ def build_query_exact_core(q_variants: List[str], size: int) -> Dict[str, Any]:
     return {
         "size": size,
         "_source": _source_fields(),
-        "query": {
-            "bool": {
-                "should": _multi_should_match_queries(q_variants, "exact_core"),
-                "minimum_should_match": 1
-            }
-        }
+        "query": {"bool": {"should": _multi_should_match_queries(q_variants, "exact_core"), "minimum_should_match": 1}}
     }
 
 
@@ -1249,32 +1523,7 @@ def build_query_autocomplete(q_variants: List[str], size: int) -> Dict[str, Any]
     return {
         "size": size,
         "_source": _source_fields(),
-        "query": {
-            "bool": {
-                "should": _multi_should_match_queries(q_variants, "autocomplete"),
-                "minimum_should_match": 1
-            }
-        }
-    }
-
-
-def build_query_from_category(category_variants: List[str], user_q_core: str, size: int) -> Dict[str, Any]:
-    should = _multi_should_match_queries(category_variants, "category")
-
-    # giữ chút tín hiệu từ user_q_core
-    uq = (user_q_core or "").strip()
-    if uq:
-        should.append({"match_bool_prefix": {"key_name_norm_full": {"query": uq, "boost": 3}}})
-
-    return {
-        "size": size,
-        "_source": _source_fields(),
-        "query": {
-            "bool": {
-                "should": should,
-                "minimum_should_match": 1
-            }
-        }
+        "query": {"bool": {"should": _multi_should_match_queries(q_variants, "autocomplete"), "minimum_should_match": 1}}
     }
 
 
@@ -1282,12 +1531,7 @@ def build_query_fuzzy_phrase(q_variants: List[str], size: int) -> Dict[str, Any]
     return {
         "size": size,
         "_source": _source_fields(),
-        "query": {
-            "bool": {
-                "should": _multi_should_match_queries(q_variants, "fuzzy_phrase"),
-                "minimum_should_match": 1
-            }
-        }
+        "query": {"bool": {"should": _multi_should_match_queries(q_variants, "fuzzy_phrase"), "minimum_should_match": 1}}
     }
 
 
@@ -1295,21 +1539,43 @@ def build_query_fuzzy_tokens(q_variants: List[str], size: int) -> Dict[str, Any]
     return {
         "size": size,
         "_source": _source_fields(),
-        "query": {
-            "bool": {
-                "should": _multi_should_match_queries(q_variants, "fuzzy_tokens"),
-                "minimum_should_match": 1
-            }
-        }
+        "query": {"bool": {"should": _multi_should_match_queries(q_variants, "fuzzy_tokens"), "minimum_should_match": 1}}
     }
 
 
 def build_query_hot(size: int) -> Dict[str, Any]:
+    return {"size": size, "_source": _source_fields(), "query": {"match_all": {}}, "sort": [{"tag_id": "asc"}]}
+
+
+# ================== SPLIT QUERY INTENT ==================
+def split_query_intent(q_raw: str) -> Dict[str, Any]:
+    q_norm = normalize_special_text(q_raw)
+
+    # chỉ remove location cho TAG suggest (pre-resolve city/ward dùng q_norm_geo riêng)
+    q_wo_locations, q_locations = extract_and_remove_locations(q_norm)
+
+    q_modifiers = _extract_modifiers(q_wo_locations)
+    q_core = cleanup_query_for_search(q_wo_locations)
+
+    if not q_core:
+        q_core = q_wo_locations or q_norm
+
+    core_tokens = meaningful_query_tokens(q_core)
+    if not core_tokens:
+        core_tokens = [t for t in q_core.split() if t]
+
+    q_variants = get_special_variants(q_core)
+    if not q_variants:
+        q_variants = [q_core]
+
     return {
-        "size": size,
-        "_source": _source_fields(),
-        "query": {"match_all": {}},
-        "sort": [{"tag_id": "asc"}]
+        "q_raw": q_raw,
+        "q_norm": q_norm,
+        "q_core": q_core,
+        "q_modifiers": q_modifiers,
+        "q_locations": q_locations,
+        "q_tokens": core_tokens,
+        "q_variants": q_variants,
     }
 
 
@@ -1321,85 +1587,176 @@ def suggest(
     fallback: int = Query(1, ge=0, le=1, description="0 = allow empty, 1 = never empty")
 ):
     q_raw = (q or "").strip()
-    ctx = split_query_intent(q_raw)
 
+    # ===== TÁCH 2 LUỒNG NORMALIZE =====
+    # q_norm_job: cho category/job/tag
+    # q_norm_geo: cho city/phường-xã
+    q_norm_job = normalize_special_text(q_raw)
+    q_norm_geo = normalize_geo_text(q_raw)
+
+    # ===== PRE-RESOLVE cat / city / ward =====
+    cat_id = int(detect_cat_id(q_norm_job))
+    cit_id = int(detect_city_id(q_norm_geo))
+
+    ward_hit = detect_phuong_xa(q_norm_geo, cit_id)
+
+    phuong_xa_id = 0
+    phuong_xa_name = ""
+
+    if ward_hit:
+        phuong_xa_id = int(ward_hit.get("phuong_xa_id", 0))
+        phuong_xa_name = str(ward_hit.get("phuong_xa_name", "") or "")
+
+        # Nếu query chưa ghi rõ city nhưng ward unique theo city thì tự suy ra city
+        if cit_id == 0:
+            cit_id = int(ward_hit.get("cit_id", 0))
+
+    cat_name = CAT_ID_TO_NAME.get(cat_id, "") if cat_id > 0 else ""
+
+    if cit_id > 0:
+        cit_name = CITY_ID_TO_NAME.get(cit_id, "")
+        if not cit_name and ward_hit:
+            cit_name = str(ward_hit.get("cit_name", "") or "")
+    else:
+        cit_name = ""
+
+    # Nếu detect được cat hoặc city hoặc ward => trả luôn placeholder tag_id=0
+    if cat_id != 0 or cit_id != 0 or phuong_xa_id != 0:
+        return SuggestResp(
+            q=q_raw,
+            size=size,
+            cat_id=cat_id,
+            cat_name=cat_name,
+            cit_id=cit_id,
+            cit_name=cit_name,
+            phuong_xa_id=phuong_xa_id,
+            phuong_xa_name=phuong_xa_name,
+            items=[SuggestItem(tag_id="0")]
+        )
+
+    # ===== Không detect được cat/city/ward => mới suggest TAG =====
+    ctx = split_query_intent(q_raw)
     q_norm = ctx["q_norm"]
     q_core = ctx["q_core"]
     q_tokens = ctx["q_tokens"]
     q_variants = ctx["q_variants"]
-    q_locations = ctx.get("q_locations", [])
 
     try:
-        # 0) q rỗng -> hot
         if not q_norm:
             data = es_search(build_query_hot(size))
             parsed = parse_items_with_score(data)
             items = dedupe_items([x["item"] for x in parsed])[:size]
-            return SuggestResp(q=q_raw, size=size, items=items)
+            return SuggestResp(
+                q=q_raw,
+                size=size,
+                cat_id=0,
+                cat_name="",
+                cit_id=0,
+                cit_name="",
+                phuong_xa_id=0,
+                phuong_xa_name="",
+                items=items
+            )
 
-        # 1) exact core trước
+        # Tier 1: exact core
         if q_core:
             data0 = es_search(build_query_exact_core(q_variants, max(size, 12)))
             parsed0 = parse_items_with_score(data0)
             items0 = rerank_items(parsed0, q_core, q_tokens, size)
             if items0:
-                return SuggestResp(q=q_raw, size=size, items=items0)
-
-        # 2) category resolver
-        cat_match = find_best_category_match(q_core)
-        if cat_match:
-            cat_norm = cat_match["canonical_norm"]
-            cat_tokens = meaningful_query_tokens(cat_norm)
-            if not cat_tokens:
-                cat_tokens = [t for t in cat_norm.split() if t]
-
-            cat_variants = get_special_variants(cat_norm)
-            if not cat_variants:
-                cat_variants = [cat_norm]
-
-            data_cat = es_search(
-                build_query_from_category(
-                    category_variants=cat_variants,
-                    user_q_core=q_core,
-                    size=max(size, CATEGORY_SEARCH_SIZE)
+                return SuggestResp(
+                    q=q_raw,
+                    size=size,
+                    cat_id=0,
+                    cat_name="",
+                    cit_id=0,
+                    cit_name="",
+                    phuong_xa_id=0,
+                    phuong_xa_name="",
+                    items=items0
                 )
-            )
-            parsed_cat = parse_items_with_score(data_cat)
-            items_cat = rerank_items(parsed_cat, cat_norm, cat_tokens, size)
-            if items_cat:
-                return SuggestResp(q=q_raw, size=size, items=items_cat)
 
-        # 3) autocomplete theo query lõi
+        # Tier 2: autocomplete
         data1 = es_search(build_query_autocomplete(q_variants, max(size, 12)))
         parsed1 = parse_items_with_score(data1)
         items1 = rerank_items(parsed1, q_core, q_tokens, size)
         if items1:
-            return SuggestResp(q=q_raw, size=size, items=items1)
+            return SuggestResp(
+                q=q_raw,
+                size=size,
+                cat_id=0,
+                cat_name="",
+                cit_id=0,
+                cit_name="",
+                phuong_xa_id=0,
+                phuong_xa_name="",
+                items=items1
+            )
 
-        # 4) fuzzy phrase theo query lõi
+        # Tier 3: fuzzy phrase
         data2a = es_search(build_query_fuzzy_phrase(q_variants, max(size, 12)))
         parsed2a = parse_items_with_score(data2a)
         parsed2a = [x for x in parsed2a if float(x.get("score") or 0.0) >= MIN_ACCEPT_SCORE]
         items2a = rerank_items(parsed2a, q_core, q_tokens, size)
         if items2a:
-            return SuggestResp(q=q_raw, size=size, items=items2a)
+            return SuggestResp(
+                q=q_raw,
+                size=size,
+                cat_id=0,
+                cat_name="",
+                cit_id=0,
+                cit_name="",
+                phuong_xa_id=0,
+                phuong_xa_name="",
+                items=items2a
+            )
 
-        # 5) fuzzy tokens theo query lõi
+        # Tier 4: fuzzy tokens
         data2b = es_search(build_query_fuzzy_tokens(q_variants, max(size, 12)))
         parsed2b = parse_items_with_score(data2b)
         parsed2b = [x for x in parsed2b if float(x.get("score") or 0.0) >= MIN_ACCEPT_SCORE]
         items2b = rerank_items(parsed2b, q_core, q_tokens, size)
         if items2b:
-            return SuggestResp(q=q_raw, size=size, items=items2b)
+            return SuggestResp(
+                q=q_raw,
+                size=size,
+                cat_id=0,
+                cat_name="",
+                cit_id=0,
+                cit_name="",
+                phuong_xa_id=0,
+                phuong_xa_name="",
+                items=items2b
+            )
 
-        # 6) fallback hot
+        # Tier 5: fallback hot
         if fallback == 1:
             data3 = es_search(build_query_hot(min(size, FALLBACK_HOT_SIZE)))
             parsed3 = parse_items_with_score(data3)
             items3 = dedupe_items([x["item"] for x in parsed3])[:size]
-            return SuggestResp(q=q_raw, size=size, items=items3)
+            return SuggestResp(
+                q=q_raw,
+                size=size,
+                cat_id=0,
+                cat_name="",
+                cit_id=0,
+                cit_name="",
+                phuong_xa_id=0,
+                phuong_xa_name="",
+                items=items3
+            )
 
-        return SuggestResp(q=q_raw, size=size, items=[])
+        return SuggestResp(
+            q=q_raw,
+            size=size,
+            cat_id=0,
+            cat_name="",
+            cit_id=0,
+            cit_name="",
+            phuong_xa_id=0,
+            phuong_xa_name="",
+            items=[]
+        )
 
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Elasticsearch error: {e}")

@@ -1,0 +1,20 @@
+{
+    "q": "việc làm kinh doanh Hà Nội mới nhất",
+    "size": 1,
+    "cat_id": 9,
+    "cat_name": "Nhân viên kinh doanh",
+    "cit_id": 1,
+    "cit_name": "Hà Nội",
+    "phuong_xa_id": 2031,
+    "phuong_xa_name": "Phường Giảng Võ",
+    "items": [
+        {
+            "tag_id": "0",
+            "key_name": "",
+            "key_name_norm_full": "",
+            "key_city_id": 0,
+            "key_qh_id": 0,
+            "key_cb_id": 0
+        }
+    ]
+}
